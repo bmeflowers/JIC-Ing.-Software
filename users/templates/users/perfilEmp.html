@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block title %}Perfil Empresa{% endblock %}
+
+{% block content %}
+<h2>Panel de Empresa</h2>
+<p><strong>Nombre:</strong> {{ empresa.nombre }}</p>
+<p><strong>Sector:</strong> {{ empresa.sector }}</p>
+<p><strong>Descripción:</strong> {{ empresa.descripcion }}</p>
+<a href="{% url 'publicar_oferta' %}">Publicar nueva oferta</a>
+{% endblock %}

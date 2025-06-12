@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block title %}Perfil Estudiante{% endblock %}
+
+{% block content %}
+<h2>Bienvenido, {{ user.username }}</h2>
+<p><strong>Nombre:</strong> {{ estudiante.nombre }}</p>
+<p><strong>Universidad:</strong> {{ estudiante.universidad }}</p>
+<p><strong>Carrera:</strong> {{ estudiante.carrera }}</p>
+<p><strong>CV:</strong> <a href="{{ estudiante.cv.url }}">Ver CV</a></p>
+{% endblock %}
