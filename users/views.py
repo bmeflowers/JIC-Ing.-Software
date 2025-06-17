@@ -51,9 +51,9 @@ def login_view(request):
             user = form.get_user()
             login(request, user)
             if hasattr(user, 'estudianteprofile'):
-                return redirect('perfilEstudiante')
+                return redirect('dashboard_estudiante')
             elif hasattr(user, 'empresaprofile'):
-                return redirect('perfilEmpresa')
+                return redirect('dashboard_empresa')
     else:
         form = AuthenticationForm()
     return render(request, 'users/login.html', {'form': form})

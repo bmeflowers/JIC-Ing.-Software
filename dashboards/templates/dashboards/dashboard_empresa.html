@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block title %}Dashboard Empresa{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h2>Bienvenida, {{ user.username }} 👩‍💼</h2>
+
+    <p>Aquí puedes gestionar tus publicaciones y revisar candidatos.</p>
+
+    <ul>
+        <li><a href="#">📌 Publicar nueva vacante</a></li>
+        <li><a href="#">👀 Ver mis vacantes publicadas</a></li>
+        <li><a href="#">🧑‍🎓 Ver estudiantes postulados</a></li>
+        <li><a href="#">⚙️ Editar mi perfil de empresa</a></li>
+    </ul>
+</div>
+{% endblock %}
