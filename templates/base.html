@@ -3,16 +3,26 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Mi Plataforma{% endblock %}</title>
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+
+    {% block extra_head %}
+    {% endblock %}
 </head>
 <body>
     <header>
-        <h1>Mi Plataforma de Prácticas</h1>
-        <nav>
-            <a href="{% url 'home' %}">Inicio</a>
-            <a href="{% url 'login' %}">Iniciar Sesión</a>
-        </nav>
+        <div class="header-left">
+            <nav>
+                <a href="{% url 'home' %}">Home</a>
+            </nav>
+        </div>
+        <div class="header-center">
+            <img src="{% static 'images/t2w.png' %}" alt="Train2Work Logo" class="header-logo">
+        </div>
+        <div class="header-right">
+            <a href="{% url 'login' %}" class="btn-login">Iniciar Sesión</a>
+        </div>
     </header>
 
     <main>
@@ -20,7 +30,15 @@
     </main>
 
     <footer>
-        <p>&copy; 2025 Universidad XYZ</p>
+        <div class="footer-content">
+            <img src="{% static 'images/t2w.png' %}" alt="Train2Work Logo" class="footer-logo">
+            <nav class="footer-nav">
+                <a href="#">About Us</a>
+                <a href="#">Términos y Condiciones</a>
+                <a href="#">Política y Privacidad</a>
+            </nav>
+        </div>
+        <p>&copy; Train2Work 2025</p>
     </footer>
 </body>
 </html>

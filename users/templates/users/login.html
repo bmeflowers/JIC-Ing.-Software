@@ -3,18 +3,41 @@
 
 {% block title %}Iniciar Sesión{% endblock %}
 
+{% block extra_head %}
+    <link rel="stylesheet" href="{% static 'css/auth.css' %}">
+{% endblock %}
+
 {% block content %}
-<h2>Iniciar Sesión</h2>
+<div class="login-container">
+    <div class="login-form-section">
+        <h1>Iniciar Sesión</h1>
+        <h2></h2>
 
-<form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Entrar</button>
-</form>
+        <form method="post" class="login-form">
+            {% csrf_token %}
+            {% for field in form %}
+                <div class="form-group">
+                    <label for="{{ field.id_for_label }}">{{ field.label }}:</label>
+                    {{ field }}
+                    {% if field.help_text %}
+                        <small class="form-text text-muted">{{ field.help_text }}</small>
+                    {% endif %}
+                    {% for error in field.errors %}
+                        <p class="error-message">{{ error }}</p>
+                    {% endfor %}
+                </div>
+            {% endfor %}
+            <button type="submit" class="btn btn-primary">Entrar</button>
+        </form>
 
-<p>¿No tienes una cuenta?</p>
-<ul>
-    <li><a href="{% url 'registroEstudiante' %}">Registrarse como Estudiante</a></li>
-    <li><a href="{% url 'registroEmpresa' %}">Registrarse como Empresa</a></li>
-</ul>
+        <p class="no-account">¿No tienes una cuenta?</p>
+        <div class="registration-buttons">
+            <a href="{% url 'registroEstudiante' %}" class="btn btn-secondary">Registrarse como Estudiante</a>
+            <a href="{% url 'registroEmpresa' %}" class="btn btn-secondary">Registrarse como Empresa</a>
+        </div>
+    </div>
+    <div class="login-image-section">
+        <img src="{% static 'images/laboral.png' %}" alt="Ilustración de equipo trabajando">
+    </div>
+</div>
 {% endblock %}

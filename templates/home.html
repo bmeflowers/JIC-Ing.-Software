@@ -1,6 +1,11 @@
 {% extends "base.html" %}
+{% load static %} {# Asegúrate de que esta línea esté al principio del archivo #}
 
-{% block title %}Inicio{% endblock %}
+{% block title %}Train2Work{% endblock %}
+
+{% block extra_head %}
+    <link rel="icon" href="{% static 'images/Nwe.png' %}" type="image/png">
+{% endblock %}
 
 {% block content %}
     <h2>Bienvenido a la Plataforma de Prácticas Profesionales</h2>

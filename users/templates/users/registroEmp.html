@@ -1,11 +1,102 @@
 {% extends "base.html" %}
+{% load static %}
+
 {% block title %}Registro Empresa{% endblock %}
 
+{% block extra_head %}
+    <link rel="stylesheet" href="{% static 'css/regis.css' %}">
+{% endblock %}
+
 {% block content %}
-<h2>Registro de Empresa</h2>
-<form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Registrarse</button>
-</form>
+<div class="form-container">
+    <h2>Registrar cuenta</h2>
+    
+    <form method="post">
+        {% csrf_token %}
+
+        {# FILA 1: Nombre de usuario y Correo #}
+        <div class="form-field">
+            <label for="{{ form.username.id_for_label }}" {% if form.username.field.required %}class="required"{% endif %}>{{ form.username.label }}:</label>
+            {{ form.username }}
+            {% if form.username.help_text %}
+                <span class="helptext">{{ form.username.help_text }}</span>
+            {% endif %}
+            {% for error in form.username.errors %}
+                <span class="error-message">{{ error }}</span>
+            {% endfor %}
+        </div>
+
+        <div class="form-field">
+            <label for="{{ form.email.id_for_label }}" {% if form.email.field.required %}class="required"{% endif %}>{{ form.email.label }}:</label>
+            {{ form.email }}
+            {% for error in form.email.errors %}
+                <span class="error-message">{{ error }}</span>
+            {% endfor %}
+        </div>
+
+        {# FILA 2: Contraseña y Confirmar contraseña #}
+        <div class="form-field">
+            <label for="{{ form.password1.id_for_label }}" {% if form.password1.field.required %}class="required"{% endif %}>{{ form.password1.label }}:</label>
+            {{ form.password1 }}
+            {% for error in form.password1.errors %}
+                <span class="error-message">{{ error }}</span>
+            {% endfor %}
+            <div class="password-rules-container">
+                <ul class="password-rules">
+                    <li>Tu contraseña no puede ser demasiado parecida a tus otros datos personales.</li>
+                    <li>Tu contraseña debe contener al menos 8 caracteres.</li>
+                    <li>Tu contraseña no puede ser una contraseña de uso común.</li>
+                    <li>Tu contraseña no puede ser totalmente numérica.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="form-field">
+            <label for="{{ form.password2.id_for_label }}" {% if form.password2.field.required %}class="required"{% endif %}>{{ form.password2.label }}:</label>
+            {{ form.password2 }}
+            {% for error in form.password2.errors %}
+                <span class="error-message">{{ error }}</span>
+            {% endfor %}
+        </div>
+
+        {# FILA 3: Nombre de la empresa y Rubro #}
+        <div class="form-field">
+            <label for="{{ form.nombre_empresa.id_for_label }}" {% if form.nombre_empresa.field.required %}class="required"{% endif %}>{{ form.nombre_empresa.label }}:</label>
+            {{ form.nombre_empresa }}
+            {% for error in form.nombre_empresa.errors %}
+                <span class="error-message">{{ error }}</span>
+            {% endfor %}
+        </div>
+
+        <div class="form-field">
+            <label for="{{ form.rubro.id_for_label }}" {% if form.rubro.field.required %}class="required"{% endif %}>{{ form.rubro.label }}:</label>
+            {{ form.rubro }}
+            {% for error in form.rubro.errors %}
+                <span class="error-message">{{ error }}</span>
+            {% endfor %}
+        </div>
+
+        {# FILA 4: Descripción (ocupa todo el ancho) #}
+        <div class="form-field" style="flex: 1 1 100%;">
+            <label for="{{ form.descripcion.id_for_label }}" {% if form.descripcion.field.required %}class="required"{% endif %}>{{ form.descripcion.label }}:</label>
+            {{ form.descripcion }}
+            {% for error in form.descripcion.errors %}
+                <span class="error-message">{{ error }}</span>
+            {% endfor %}
+        </div>
+
+        {# FILA 5: Sitio web (con estilo especial) #}
+        <div class="form-field" style="flex: 1 1 100%;">
+            <label for="{{ form.sitio_web.id_for_label }}" {% if form.sitio_web.field.required %}class="required"{% endif %}>{{ form.sitio_web.label }}:</label>
+            {{ form.sitio_web }}
+            {% for error in form.sitio_web.errors %}
+                <span class="error-message">{{ error }}</span>
+            {% endfor %}
+        </div>
+
+        <div class="submit-container">
+            <button type="submit">Registrarse</button>
+        </div>
+    </form>
+</div>
 {% endblock %}
