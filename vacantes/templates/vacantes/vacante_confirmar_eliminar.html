@@ -1,0 +1,20 @@
+{% extends "HeaderDashboardEmp.html" %}
+
+{% block content %}
+    <div class="container my-4">
+        <h1 class="mb-4 text-danger">Confirmar Eliminación de Vacante</h1>
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <p class="alert alert-warning" role="alert">
+                    ¿Estás seguro de que quieres eliminar la vacante "<strong>{{ object.title }}</strong>"?
+                    Esta acción es **irreversible** y eliminará también todas las postulaciones asociadas.
+                </p>
+                <form method="post">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger me-2">Sí, Eliminar</button>
+                    <a href="{% url 'vacantes:vacante_empresa_detalles' object.pk %}" class="btn btn-secondary">Cancelar</a>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}
