@@ -8,16 +8,13 @@
                 <h5 class="card-subtitle mb-3 text-muted">Empresa: {{ vacante.empresa.nombre_empresa }}</h5>
 
                 <p class="card-text"><strong>Descripción:</strong></p>
-                <p class="card-text">{{ vacancy.description|linebreaksbr }}</p>
+                <p class="card-text">{{ vacante.descripcion|linebreaksbr }}</p>
 
                 <p class="card-text"><strong>Requisitos:</strong></p>
                 <p class="card-text">{{ vacante.requerimientos|linebreaksbr }}</p>
 
                 <ul class="list-group list-group-flush mb-3">
                     <li class="list-group-item"><strong>Ubicación:</strong> {{ vacante.ubicacion }}</li>
-                    {% if vacante.rango_salario %}
-                        <li class="list-group-item"><strong>Rango Salarial:</strong> {{ vacante.rango_salario }}</li>
-                    {% endif %}
                     <li class="list-group-item"><strong>Publicado el:</strong> {{ vacante.fecha_publicada|date:"d M, Y H:i" }}</li>
                     <li class="list-group-item"><strong>Fecha Límite:</strong> {{ vacante.fecha_limite|date:"d M, Y" }}</li>
                     <li class="list-group-item"><strong>Estado:</strong> 

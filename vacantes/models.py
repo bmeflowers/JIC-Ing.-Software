@@ -8,7 +8,6 @@ class Vacante(models.Model):
     descripcion = models.TextField()
     requerimientos = models.TextField()
     ubicacion = models.CharField(max_length=100)
-    rango_salario = models.CharField(max_length=100, blank=True, null=True)
     fecha_publicada = models.DateTimeField(auto_now_add=True)
     fecha_limite = models.DateField()
     activo = models.BooleanField(default=True)

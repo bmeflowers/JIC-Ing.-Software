@@ -15,9 +15,6 @@
 
                 <ul class="list-group list-group-flush mb-3">
                     <li class="list-group-item px-0"><strong>Ubicación:</strong> {{ vacante.ubicacion }}</li>
-                    {% if vacante.rango_salario %}
-                        <li class="list-group-item px-0"><strong>Rango Salarial:</strong> {{ vacante.rango_salarial }}</li>
-                    {% endif %}
                     <li class="list-group-item px-0"><strong>Publicado el:</strong> {{ vacante.fecha_publicada|date:"d M, Y" }}</li>
                     <li class="list-group-item px-0"><strong>Fecha Límite de Aplicación:</strong> {{ vacante.fecha_limite|date:"d M, Y" }}</li>
                 </ul>
@@ -27,7 +24,7 @@
                     {% if user.is_authenticated %}
                         {% if user.estudianteprofile %}
                         {# Cambiar el nombre de url al verdadero cuando sea creado #}
-                        <a href="{% url 'postulaciones:aplicar_a_vacante' vacante.pk %}" class="btn btn-success btn-lg">Aplicar a esta Vacante</a>
+                        <a href="#">Aplicar a esta Vacante</a>
                         
                         {% elif user.empresaprofile %}                            <p class="text-muted">Estás logueado como empresa. No puedes aplicar a esta vacante.</p>
                         {% else %} {# Usuario logueado sin perfil específico #}
