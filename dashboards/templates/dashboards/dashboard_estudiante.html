@@ -5,13 +5,36 @@
 {% block content %}
 <div class="container">
     <h2>Hola, {{ user.username }} 🎓</h2>
+    <p class="lead">Explora oportunidades y gestiona tus postulaciones.</p>
 
-    <p>Explora oportunidades y gestiona tus postulaciones.</p>
+    <div class="mb-4">
+        <a href="{% url 'perfilEstudiante' %}" class="btn btn-secondary">📁 Editar mi perfil</a>
+    </div>
 
-    <ul>
-        <li><a href="#">🔍 Ver vacantes disponibles</a></li>
-        <li><a href="#">📄 Mis postulaciones</a></li>
-        <li><a href="#">📁 Editar mi perfil de estudiante</a></li>
-    </ul>
+    <h4>📄 Mis postulaciones</h4>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Vacante</th>
+                <th>Empresa</th>
+                <th>Descripción</th>
+                <th>Fecha</th>
+                <th>Estado</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for p in postulaciones %}
+                <tr>
+                    <td>{{ p.nombre_vacante }}</td>
+                    <td>{{ p.empresa }}</td>
+                    <td>{{ p.descripcion|truncatewords:10 }}</td>
+                    <td>{{ p.fecha_postulacion|date:"d/m/Y" }}</td>
+                    <td>{{ p.estado|title }}</td>
+                </tr>
+            {% empty %}
+                <tr><td colspan="5">Aún no te has postulado a ninguna vacante.</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
 </div>
 {% endblock %}

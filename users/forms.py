@@ -22,3 +22,17 @@ class EmpresaRegisterForm(UserCreationForm):
     class Meta:
         model = User
         fields = ['username', 'email', 'password1', 'password2']
+
+class EstudianteProfileForm(forms.ModelForm):
+    class Meta:
+        model = EstudianteProfile
+        fields = ['carrera', 'semestre', 'habilidades', 'cv']
+        widgets = {
+            'habilidades': forms.Textarea(attrs={'rows': 3}),
+        }
+
+class EmpresaProfileForm(forms.ModelForm):
+    class Meta:
+        model = EmpresaProfile
+        fields = ['nombre_empresa', 'rubro', 'descripcion', 'sitio_web']
+
