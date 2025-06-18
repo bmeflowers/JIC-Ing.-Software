@@ -5,7 +5,7 @@ from .forms import EstudianteRegisterForm, EmpresaRegisterForm
 from .models import EstudianteProfile, EmpresaProfile
 from django.contrib.auth.decorators import login_required
 
-def home (request):
+def home(request):
     return render(request, 'home.html')
 
 def registroEstudiante(request):
@@ -21,7 +21,7 @@ def registroEstudiante(request):
                 cv=form.cleaned_data.get('cv')
             )
             login(request, user)
-            return redirect('perfilEstudiante')
+            return redirect('dashboards:dashboard_estudiante')
     else:
         form = EstudianteRegisterForm()
     return render(request, 'users/registroEst.html', {'form': form})
@@ -39,7 +39,7 @@ def registroEmpresa(request):
                 sitio_web=form.cleaned_data['sitio_web']
             )
             login(request, user)
-            return redirect('perfilEmpresa')
+            return redirect('dashboards:dashboard_empresa')
     else:
         form = EmpresaRegisterForm()
     return render(request, 'users/registroEmp.html', {'form': form})
@@ -51,22 +51,22 @@ def login_view(request):
             user = form.get_user()
             login(request, user)
             if hasattr(user, 'estudianteprofile'):
-                return redirect('perfilEstudiante')
+                return redirect('dashboards:dashboard_estudiante')
             elif hasattr(user, 'empresaprofile'):
-                return redirect('perfilEmpresa')
+                return redirect('dashboards:dashboard_empresa')
     else:
         form = AuthenticationForm()
     return render(request, 'users/login.html', {'form': form})
 
 def logout_view(request):
     logout(request)
-    return redirect('login')
+    return redirect('home')
 
+# Vistas de perfil (simplificadas)
 @login_required
 def perfilEstudiante(request):
-    return render(request, 'users/perfilEst.html')
+    return redirect('dashboards:dashboard_estudiante')
 
 @login_required
 def perfilEmpresa(request):
-    return render(request, 'users/perfilEmp.html')
-
+    return redirect('dashboards:dashboard_empresa')
