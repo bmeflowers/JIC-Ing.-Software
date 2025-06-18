@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container my-4">
+        <h1 class="mb-4">Buscar Prácticas Profesionales</h1>
+        {# Aquí añadir un formulario de búsqueda/filtrado para estudiantes (futuro) #}
+
+        {% if vacantes %}
+            <div class="row">
+                {% for vacante in vacantes %}
+                    <div class="col-md-6 col-lg-4 mb-4"> {# Ajuste de columnas para diferentes tamaños de pantalla #}
+                        <div class="card h-100 shadow-sm">
+                            <div class="card-body d-flex flex-column">
+                                <h5 class="card-title mb-2"><a href="{% url 'vacantes:vacante_publica_detalles' vacante.pk %}" class="text-decoration-none text-primary">{{ vacante.titulo }}</a></h5>
+                                <h6 class="card-subtitle mb-2 text-muted">{{ vacante.empresa.nombre_empresa }}</h6>
+                                <p class="card-text flex-grow-1">{{ vacante.descripcion|truncatechars:150 }}</p>
+                                <ul class="list-group list-group-flush mb-3">
+                                    <li class="list-group-item px-0"><strong>Ubicación:</strong> {{ vacante.ubicacion }}</li>
+                                    <li class="list-group-item px-0"><strong>Fecha Límite:</strong> {{ vacante.fecha_limite|date:"d M, Y" }}</li>
+                                </ul>
+                                <div class="mt-auto"> {# Empuja el botón al final #}
+                                    <a href="{% url 'vacantes:vacante_publica_detalles' vacante.pk %}" class="btn btn-primary btn-sm">Ver Detalles</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+
+            {# Paginación de las vacantes #}
+            {% if is_paginated %}
+                <nav aria-label="Page navigation example" class="mt-4">
+                    <ul class="pagination justify-content-center">
+                        {% if page_obj.has_previous %}
+                            <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">Anterior</a></li>
+                        {% endif %}
+                        <li class="page-item active"><span class="page-link">{{ page_obj.number }} de {{ page_obj.paginator.num_pages }}</span></li>
+                        {% if page_obj.has_next %}
+                            <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">Siguiente</a></li>
+                        {% endif %}
+                    </ul>
+                </nav>
+            {% endif %}
+
+        {% else %}
+            <div class="alert alert-info" role="alert">
+                <p class="mb-0">No hay vacantes activas disponibles en este momento. ¡Vuelve pronto!</p>
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}

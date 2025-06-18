@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container my-4">
+        <h1 class="mb-4">{% if form.instance.pk %}Editar Vacante{% else %}Publicar Nueva Vacante{% endif %}</h1>
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <form method="post">
+                    {% csrf_token %}
+
+                    {# Renderiza los errores del formulario si existen #}
+                    {% if form.errors %}
+                        <div class="alert alert-danger" role="alert">
+                            Por favor, corrige los siguientes errores:
+                            <ul>
+                                {% for field in form %}
+                                    {% if field.errors %}
+                                        {% for error in field.errors %}
+                                            <li>{{ field.label }}: {{ error }}</li>
+                                        {% endfor %}
+                                    {% endif %}
+                                {% endfor %}
+                                {% if form.non_field_errors %}
+                                    {% for error in form.non_field_errors %}
+                                        <li>{{ error }}</li>
+                                    {% endfor %}
+                                {% endif %}
+                            </ul>
+                        </div>
+                    {% endif %}
+
+                    {# Renderiza los campos del formulario #}
+                    {{ form.as_p }} 
+                    
+                    <button type="submit" class="btn btn-success mt-3 me-2">Guardar Vacante</button>
+                    <a href="{% url 'vacantes:vacante_empresa_lista' %}" class="btn btn-secondary mt-3">Cancelar</a>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}
