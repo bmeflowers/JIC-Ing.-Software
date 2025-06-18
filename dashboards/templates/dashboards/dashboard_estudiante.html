@@ -1,0 +1,17 @@
+{% extends "HeaderDashboard.html" %}
+
+{% block title %}Dashboard Estudiante{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h2>Hola, {{ user.username }} 🎓</h2>
+
+    <p>Explora oportunidades y gestiona tus postulaciones.</p>
+
+    <ul>
+        <li><a href="{% url 'vacantes:vacante_publica_lista' %}" class="btn btn-info">🔍 Ver vacantes disponibles</a></li>
+        <li><a href="#">📄 Mis postulaciones</a></li>
+        <li><a href="#">📁 Editar mi perfil de estudiante</a></li>
+    </ul>
+</div>
+{% endblock %}

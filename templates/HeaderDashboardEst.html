@@ -1,0 +1,46 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Train2Work{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+
+    {% block extra_head %}
+    {% endblock %}
+</head>
+<body>
+    <header>
+        <div class="header-left">
+            <img src="{% static 'images/t2w.png' %}" alt="Train2Work Logo" class="header-logo">
+        </div>
+        <div class="header-center">
+            <nav>
+                <a href="#">Home</a>
+                <a href="{% url 'vacantes:vacante_publica_lista' %}" class="btn btn-info">Vacantes</a>
+                <a href="{%url 'home' %}">Salir</a>
+            </nav>
+        </div>
+        <div class="header-right">
+            <a href="{% url 'perfilEstudiante' %}" class="btn-login">Perfil</a>
+        </div>
+    </header>
+
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <img src="{% static 'images/t2w.png' %}" alt="Train2Work Logo" class="footer-logo">
+            <nav class="footer-nav">
+                <a href="#">About Us</a>
+                <a href="#">Términos y Condiciones</a>
+                <a href="#">Política y Privacidad</a>
+            </nav>
+        </div>
+        <p>&copy; Train2Work 2025</p>
+    </footer>
+</body>
+</html>

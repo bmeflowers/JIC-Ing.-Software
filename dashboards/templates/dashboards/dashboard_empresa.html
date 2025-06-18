@@ -1,0 +1,21 @@
+{% extends "HeaderDashboardEmp.html" %}
+{% load static %}
+
+{% block title %}Crea nuevas experiencias laborales-T2W 2025{% endblock %}
+{% block extra_head %}
+    <link rel="icon" href="{% static 'images/Nwe.png' %}" type="image/png">
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h2>Bienvenido, {{ user.username }} 👩‍💼</h2>
+
+    <p>Aquí puedes gestionar tus publicaciones y revisar candidatos.</p>
+
+    <ul>
+        <li><a href="{% url 'vacantes:vacante_empresa_lista' %}" class="btn btn-primary me-2">👀 Ver mis vacantes publicadas</a></li>
+        <li><a href="#">🧑‍🎓 Ver estudiantes postulados</a></li>
+        <li><a href="#">⚙️ Editar mi perfil de empresa</a></li>
+    </ul>
+</div>
+{% endblock %}
