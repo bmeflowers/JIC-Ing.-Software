@@ -18,8 +18,8 @@
                     {% if vacante.rango_salario %}
                         <li class="list-group-item"><strong>Rango Salarial:</strong> {{ vacante.rango_salario }}</li>
                     {% endif %}
-                    <li class="list-group-item"><strong>Publicado el:</strong> {{ vacante.fecha_publicada|date: "d M, Y H:i" }}</li>
-                    <li class="list-group-item"><strong>Fecha Límite:</strong> {{ vacante.fecha_limite|date: "d M, Y" }}</li>
+                    <li class="list-group-item"><strong>Publicado el:</strong> {{ vacante.fecha_publicada|date:"d M, Y H:i" }}</li>
+                    <li class="list-group-item"><strong>Fecha Límite:</strong> {{ vacante.fecha_limite|date:"d M, Y" }}</li>
                     <li class="list-group-item"><strong>Estado:</strong> 
                         {% if vacante.activo %}
                             <span class="badge bg-success text-white">Activa</span>

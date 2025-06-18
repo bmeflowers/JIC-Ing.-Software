@@ -78,7 +78,7 @@ class VacanteDeleteView(EmpresaRequiredMixin, DeleteView):
 
     def get_queryset(self):
         perfil_empresa = self.request.user.empresaprofile
-        return Vacante.objects.filter(company=perfil_empresa)
+        return Vacante.objects.filter(empresa=perfil_empresa)
     
 # --- Vistas para que los estudiantes BUSQUEN vacantes (públicas) ---
 # Estas vistas no requieren CompanyRequiredMixin, pero sí podrían requerir LoginRequiredMixin
