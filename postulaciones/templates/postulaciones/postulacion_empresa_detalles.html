@@ -1,0 +1,40 @@
+{% extends 'HeaderDashboardEmp.html' %}
+
+{% block content %}
+    <div class="container my-4">
+        <h1 class="mb-4">Detalle de la Postulación</h1>
+        <div class="card shadow-sm mb-4">
+            <div class="card-body">
+                <h5 class="card-title">Vacante: {{ postulacion.vacante.titulo }}</h5> {# Campo 'vacante' #}
+                <h6 class="card-subtitle mb-3 text-muted">Empresa: {{ postulacion.vacante.empresa.nombre_empresa }}</h6>
+                <hr>
+
+                <p><strong>Postulante:</strong> {{ postulacion.estudiante.user.username }}</p>
+                <p><strong>Email del Postulante:</strong> {{ postulacion.estudiante.user.email }}</p>
+                <p><strong>Fecha de Postulación:</strong> {{ postulacion.fecha_postulacion|date:"d M, Y H:i" }}</p>
+                
+                <p><strong>Nombre Completo:</strong> {{ postulacion.nombre_completo }}</p>
+                <p><strong>Edad:</strong> {{ postulacion.edad }}</p>
+                <p><strong>Institución:</strong> {{ postulacion.institucion }}</p>
+                {% if postulacion.motivo %}
+                    <p><strong>Motivo de Aplicación:</strong></p>
+                    <p>{{ postulacion.motivo|linebreaksbr }}</p>
+                {% endif %}
+
+                {% if postulacion.cv %}
+                    <p><strong>Currículum Vitae:</strong> <a href="{{ postulacion.cv.url }}" target="_blank" class="btn btn-sm btn-outline-primary">Descargar CV</a></p>
+                {% else %}
+                    <p class="text-muted">El estudiante no ha subido un CV para esta postulación.</p>
+                {% endif %}
+
+                <h5 class="mt-4">Cambiar Estado de la Postulación</h5>
+                <form method="post">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <button type="submit" class="btn btn-success mt-2 me-2">Actualizar Estado</button>
+                    <a href="{% url 'postulaciones:postulaciones_empresa_lista' postulacion.vacante.pk %}" class="btn btn-secondary mt-2">Volver a Postulaciones de la Vacante</a>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

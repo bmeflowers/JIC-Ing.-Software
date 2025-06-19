@@ -6,7 +6,23 @@
 <div class="container">
     <h2>Hola, {{ user.username }} 🎓</h2>
 
+<<<<<<< Updated upstream
     <p>Explora oportunidades y gestiona tus postulaciones.</p>
+=======
+    <p class="lead">Explora oportunidades y gestiona tus postulaciones.</p>
+
+    <ul class="list-group">
+        <li class="list-group-item">
+            <a href="{% url 'vacantes:vacante_publica_lista' %}" class="btn btn-outline-primary w-100">
+                🔍 Ver vacantes disponibles
+            </a>
+        </li>
+        <li class="list-group-item">
+            <a href="{% url 'postulaciones:ver_postulaciones' %}" class="btn btn-outline-success w-100">
+                📄 Mis postulaciones
+            </a>
+        </li>
+>>>>>>> Stashed changes
 
     <ul>
         <li><a href="{% url 'vacantes:vacante_publica_lista' %}" class="btn btn-info">🔍 Ver vacantes disponibles</a></li>

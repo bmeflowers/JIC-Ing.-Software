@@ -1,0 +1,61 @@
+{% extends 'HeaderDashboardEmp.html' %}
+
+{% block content %}
+    <div class="container my-4">
+        <h1 class="mb-4">Vacantes Publicadas y sus Postulaciones</h1>
+        <p class="lead">Selecciona una vacante para ver las postulaciones recibidas.</p>
+
+        {% if vacantes %}
+            <div class="table-responsive">
+                <table class="table table-striped table-hover">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th>Título de la Vacante</th>
+                            <th>Estado</th>
+                            <th>Fecha Límite</th>
+                            <th>Total Postulaciones</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for vacante in vacantes %}
+                            <tr>
+                                <td><a href="{% url 'vacantes:vacante_empresa_detalles' vacante.pk %}">{{ vacante.titulo }}</a></td>
+                                <td>
+                                    {% if vacante.activo %}
+                                        <span class="badge bg-success text-white">Activa</span>
+                                    {% else %}
+                                        <span class="badge bg-secondary text-white">Inactiva</span>
+                                    {% endif %}
+                                </td>
+                                <td>{{ vacante.fecha_limite|date:"d M, Y" }}</td>
+                                <td>
+                                    {% if vacante.total_postulaciones > 0 %}
+                                        <span class="badge bg-primary text-white">{{ vacante.total_postulaciones }}</span>
+                                    {% else %}
+                                        <span class="badge bg-warning text-dark">0</span>
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    {% if vacante.total_postulaciones > 0 %}
+                                        <a href="{% url 'postulaciones:postulaciones_empresa_lista' vacante.pk %}" class="btn btn-sm btn-info">Ver Postulaciones</a>
+                                    {% else %}
+                                        <button class="btn btn-sm btn-outline-secondary" disabled>Sin Postulaciones</button>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% else %}
+            <div class="alert alert-info" role="alert">
+                <p class="mb-0">Aún no tienes vacantes publicadas con postulaciones. <a href="{% url 'vacantes:crear_vacante' %}" class="alert-link">¡Publica una nueva vacante ahora!</a></p>
+            </div>
+        {% endif %}
+
+        <div class="mt-4">
+            <a href="{% url 'dashboards:dashboard_empresa' %}" class="btn btn-secondary">Volver al Dashboard</a>
+        </div>
+    </div>
+{% endblock %}

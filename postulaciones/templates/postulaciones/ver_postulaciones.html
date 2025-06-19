@@ -1,0 +1,53 @@
+{% extends 'HeaderDashboardEst.html' %}
+{% load static %}
+
+{% block title %}{{ titulo }}{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2 class="mb-4">{{ titulo }}</h2>
+    
+    {% if postulaciones %}
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Vacante</th>
+                    <th>Empresa</th>
+                    <th>Estado</th>
+                    <th>Fecha</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for post in postulaciones %}
+                <tr>
+                    <td>{{ post.vacante.titulo }}</td> <!-- Eliminado el enlace -->
+                    <td>{{ post.vacante.empresa.nombre_empresa }}</td>
+                    <td>
+                        <span class="badge 
+                            {% if post.status == 'Aceptada' %}bg-success
+                            {% elif post.status == 'Rechazada' %}bg-danger
+                            {% elif post.status == 'Entrevista' %}bg-info text-white
+                            {% else %}bg-warning text-dark{% endif %}">
+                            {{ post.status }}
+                        </span>
+                    </td>
+                    <td>{{ post.fecha_postulacion|date:"d/m/Y H:i" }}</td>
+                    <td>
+                        {% if post.status == 'Pendiente' %}
+                        <a href="#" class="btn btn-sm btn-danger">Cancelar</a>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+    <div class="alert alert-info">
+        No tienes postulaciones registradas.
+    </div>
+    {% endif %}
+</div>
+{% endblock %}
