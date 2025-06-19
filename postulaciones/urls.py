@@ -1,6 +1,10 @@
 from django.urls import path
+from . import views
+
+app_name = 'postulaciones'
 
 urlpatterns = [
+<<<<<<< HEAD
 <<<<<<< Updated upstream
     
 =======
@@ -11,4 +15,8 @@ urlpatterns = [
     path('empresa/vacante/<int:pk>/postulaciones/', views.PostulacionesEmpresaListView.as_view(), name='postulaciones_empresa_lista'),
     path('empresa/postulacion/<int:pk>/detalles/', views.PostulacionEmpresaDetailView.as_view(), name='postulacion_empresa_detalles')
 >>>>>>> Stashed changes
+=======
+    path('postular/<int:vacante_id>/', views.postular_vacante, name='postular_vacante'),
+    path('mis-postulaciones/', views.ver_postulaciones, name='ver_postulaciones'),
+>>>>>>> bmeflowers_02
 ]

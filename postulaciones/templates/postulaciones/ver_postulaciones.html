@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 {% extends 'HeaderDashboardEst.html' %}
+=======
+{% extends 'base.html' %}
+>>>>>>> bmeflowers_02
 {% load static %}
 
 {% block title %}{{ titulo }}{% endblock %}
@@ -26,16 +30,27 @@
                     <td>{{ post.vacante.empresa.nombre_empresa }}</td>
                     <td>
                         <span class="badge 
+<<<<<<< HEAD
                             {% if post.status == 'Aceptada' %}bg-success
                             {% elif post.status == 'Rechazada' %}bg-danger
                             {% elif post.status == 'Entrevista' %}bg-info text-white
                             {% else %}bg-warning text-dark{% endif %}">
                             {{ post.status }}
+=======
+                            {% if post.estado == 'aceptada' %}bg-success
+                            {% elif post.estado == 'rechazada' %}bg-danger
+                            {% else %}bg-warning text-dark{% endif %}">
+                            {{ post.estado|title }}
+>>>>>>> bmeflowers_02
                         </span>
                     </td>
                     <td>{{ post.fecha_postulacion|date:"d/m/Y H:i" }}</td>
                     <td>
+<<<<<<< HEAD
                         {% if post.status == 'Pendiente' %}
+=======
+                        {% if post.estado == 'pendiente' %}
+>>>>>>> bmeflowers_02
                         <a href="#" class="btn btn-sm btn-danger">Cancelar</a>
                         {% endif %}
                     </td>

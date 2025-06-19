@@ -17,7 +17,6 @@ urlpatterns = [
     path('empresa/<int:pk>/', VacanteEmpresaDetailView.as_view(), name='vacante_empresa_detalles'),
     path('empresa/<int:pk>/editar/', VacanteUpdateView.as_view(), name='actualizar_vacante'),
     path('empresa/<int:pk>/eliminar/', VacanteDeleteView.as_view(), name='eliminar_vacante'),
-
     path('', VacantePublicaListView.as_view(), name='vacante_publica_lista'),
     path('<int:pk>/', VacantePublicaDetailListView.as_view(), name='vacante_publica_detalles')
 ]

@@ -12,6 +12,7 @@ class PostulacionForm(forms.ModelForm):
             'motivo': forms.Textarea(attrs={'class': 'form-control', 'rows': 4}),
             'cv': forms.ClearableFileInput(attrs={'class': 'form-control'}),
         }
+<<<<<<< HEAD
 
 class PostulacionStatusUpdateForm(forms.ModelForm):
     class Meta:
@@ -23,3 +24,5 @@ class PostulacionStatusUpdateForm(forms.ModelForm):
         widgets = {
             'status': forms.Select(attrs={'class': 'form-select'}),
         }
+=======
+>>>>>>> bmeflowers_02
