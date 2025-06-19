@@ -1,45 +1,44 @@
 {% extends "HeaderDashboardEst.html" %}
 
 {% block content %}
-    <div class="container my-4">
-        <h1 class="mb-4">{{ vacante.titulo }}</h1>
-        <div class="card shadow-sm">
-            <div class="card-body">
-                <h5 class="card-subtitle mb-3 text-muted">Publicado por: {{ vacante.empresa.nombre_empresa }}</h5>
-                
-                <p class="card-text"><strong>Descripción:</strong></p>
-                <p class="card-text">{{ vacante.descripcion|linebreaksbr }}</p>
+<div class="container my-4">
+    <h1 class="mb-4">{{ vacante.titulo }}</h1>
+    <div class="card shadow-sm">
+        <div class="card-body">
+            <h5 class="card-subtitle mb-3 text-muted">Publicado por: {{ vacante.empresa.nombre_empresa }}</h5>
+            
+            <p class="card-text"><strong>Descripción:</strong></p>
+            <p class="card-text">{{ vacante.descripcion|linebreaksbr }}</p>
 
-                <p class="card-text"><strong>Requisitos:</strong></p>
-                <p class="card-text">{{ vacante.requerimientos|linebreaksbr }}</p>
+            <p class="card-text"><strong>Requisitos:</strong></p>
+            <p class="card-text">{{ vacante.requerimientos|linebreaksbr }}</p>
 
-                <ul class="list-group list-group-flush mb-3">
-                    <li class="list-group-item px-0"><strong>Ubicación:</strong> {{ vacante.ubicacion }}</li>
-                    <li class="list-group-item px-0"><strong>Publicado el:</strong> {{ vacante.fecha_publicada|date:"d M, Y" }}</li>
-                    <li class="list-group-item px-0"><strong>Fecha Límite de Aplicación:</strong> {{ vacante.fecha_limite|date:"d M, Y" }}</li>
-                </ul>
+            <ul class="list-group list-group-flush mb-3">
+                <li class="list-group-item px-0"><strong>Ubicación:</strong> {{ vacante.ubicacion }}</li>
+                <li class="list-group-item px-0"><strong>Publicado el:</strong> {{ vacante.fecha_publicada|date:"d M, Y" }}</li>
+                <li class="list-group-item px-0"><strong>Fecha Límite de Aplicación:</strong> {{ vacante.fecha_limite|date:"d M, Y" }}</li>
+            </ul>
 
-                {# Botón para aplicar - Esto se conecta con 'postulaciones' #}
-                <div class="mt-4">
-                    {% if user.is_authenticated %}
-                        {% if user.estudianteprofile %}
-                        {# Cambiar el nombre de url al verdadero cuando sea creado #}
-                        <a href="#">Aplicar a esta Vacante</a>
-                        
-                        {% elif user.empresaprofile %}                            <p class="text-muted">Estás logueado como empresa. No puedes aplicar a esta vacante.</p>
-                        {% else %} {# Usuario logueado sin perfil específico #}
-                            <p class="text-muted">Para aplicar, necesitas un perfil de estudiante.</p>
-                            {# Se puede agregar un enlace para crear el perfil de estudiante #}
-                        {% endif %}
+            {# Botón para aplicar - Conectado a la app 'postulaciones' #}
+            <div class="mt-4">
+                {% if user.is_authenticated %}
+                    {% if user.estudianteprofile %}
+                        <a href="{% url 'postulaciones:postular_vacante' vacante.id %}" class="btn btn-success">
+                            ✅ Aplicar a esta Vacante
+                        </a>
+                    {% elif user.empresaprofile %}
+                        <p class="text-muted">Estás logueado como empresa. No puedes aplicar a esta vacante.</p>
                     {% else %}
-                        <p class="text-muted">Inicia sesión como estudiante para aplicar a esta vacante.</p>
-                        <a href="{% url 'users:login' %}" class="btn btn-primary me-2">Iniciar Sesión</a>
-                        {# O un enlace al registro de estudiantes #}
+                        <p class="text-muted">Para aplicar, necesitas un perfil de estudiante.</p>
                     {% endif %}
-                </div>
-
-                <a href="{% url 'vacantes:vacante_publica_lista' %}" class="btn btn-secondary mt-3">Volver a la Búsqueda de Vacantes</a>
+                {% else %}
+                    <p class="text-muted">Inicia sesión como estudiante para aplicar a esta vacante.</p>
+                    <a href="{% url 'login' %}" class="btn btn-primary me-2">Iniciar Sesión</a>
+                {% endif %}
             </div>
+
+            <a href="{% url 'vacantes:vacante_publica_lista' %}" class="btn btn-secondary mt-3">← Volver a la Búsqueda de Vacantes</a>
         </div>
     </div>
+</div>
 {% endblock %}
