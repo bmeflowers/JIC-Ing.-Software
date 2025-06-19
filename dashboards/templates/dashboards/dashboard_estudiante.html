@@ -3,15 +3,9 @@
 {% block title %}Dashboard Estudiante{% endblock %}
 
 {% block content %}
-<div class="container mt-4">
-    <h2 class="mb-3">Hola, {{ user.username }} 🎓</h2>
+<div class="container">
+    <h2>Hola, {{ user.username }} 🎓</h2>
 
-<<<<<<< HEAD
-<<<<<<< Updated upstream
-    <p>Explora oportunidades y gestiona tus postulaciones.</p>
-=======
-=======
->>>>>>> bmeflowers_02
     <p class="lead">Explora oportunidades y gestiona tus postulaciones.</p>
 
     <ul class="list-group">
@@ -21,19 +15,15 @@
             </a>
         </li>
         <li class="list-group-item">
-<<<<<<< HEAD
             <a href="{% url 'postulaciones:ver_postulaciones' %}" class="btn btn-outline-success w-100">
                 📄 Mis postulaciones
             </a>
         </li>
->>>>>>> Stashed changes
-=======
-            <a href="{% url 'pstulaciones:ver_postulaciones' %}" class="btn btn-outline-success w-100">
-                📄 Mis postulaciones
-            </a>
-        </li>
->>>>>>> bmeflowers_02
 
+    <ul>
+        <li><a href="{% url 'vacantes:vacante_publica_lista' %}" class="btn btn-info">🔍 Ver vacantes disponibles</a></li>
+        <li><a href="#">📄 Mis postulaciones</a></li>
+        <li><a href="#">📁 Editar mi perfil de estudiante</a></li>
     </ul>
 </div>
 {% endblock %}
