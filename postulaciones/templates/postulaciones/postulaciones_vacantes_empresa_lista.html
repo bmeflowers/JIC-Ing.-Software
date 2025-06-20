@@ -1,0 +1,76 @@
+{% extends 'HeaderDashboardEmp.html' %}
+{% load static %}
+
+{% block extra_head %}
+<link rel="icon" href="{% static 'images/Nwe.png' %}" type="image/png">
+<link rel="stylesheet" href="{% static 'css/vacantes.css' %}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+{% endblock %}
+
+{% block content %}
+    <div class="vacantes-container">
+        <div class="vacantes-header">
+            <div class="header-left">
+                <a href="{% url 'dashboards:dashboard_empresa' %}" class="back-link">
+                <i class="fas fa-arrow-left"></i> Atrás
+                </a>
+                <h1 class="vacantes-title">Vacantes Publicadas y sus Postulaciones</h1>
+                <p class="lead">Selecciona una vacante para ver las postulaciones recibidas.</p>
+            </div>
+        </div>
+
+        {% if vacantes %}
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Título de la Vacante</th>
+                            <th>Estado</th>
+                            <th>Fecha Límite</th>
+                            <th>Total Postulaciones</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for vacante in vacantes %}
+                            <tr>
+                                <td><a>{{ vacante.titulo }}</a></td>
+                                <td>
+                                    {% if vacante.activo %}
+                                        <span class="badge bg-success estado-activo">Activa</span>
+                                    {% else %}
+                                        <span class="badge bg-secondary estado-inactivo">Inactiva</span>
+                                    {% endif %}
+                                </td>
+                                <td>{{ vacante.fecha_limite|date:"d M, Y" }}</td>
+                                <td>
+                                    {% if vacante.total_postulaciones > 0 %}
+                                        <span class="badge bg-primary">{{ vacante.total_postulaciones }}</span>
+                                    {% else %}
+                                        <span class="badge bg-warning">0</span>
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    <div class="acciones-container">
+                                        {% if vacante.total_postulaciones > 0 %}
+                                            <a href="{% url 'postulaciones:postulaciones_empresa_lista' vacante.pk %}" class="btn-accion Post">Ver Postulaciones</a>
+                                        {% else %}
+                                            <button class="btn-accion NoPost" disabled>Sin Postulaciones</button>
+                                        {% endif %}
+                                    </div>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% else %}
+            <div class="estado-vacio">
+                <div class="icono-vacio">
+                    <i class="fas fa-file-alt"></i>
+                </div>
+                <p class="mensaje-vacio">Aún no tienes vacantes publicadas con postulaciones. <a href="{% url 'vacantes:crear_vacante' %}" class="alert-link">¡Publica una nueva vacante ahora!</a></p>
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}

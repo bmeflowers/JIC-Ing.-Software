@@ -1,0 +1,38 @@
+{% extends "HeaderDashboardEst.html" %}
+{% load static %}
+
+{% block title %}Postular a {{ vacante.titulo }}{% endblock %}
+
+{% block extra_head %}
+<link rel="icon" href="{% static 'images/Nwe.png' %}" type="image/png">
+<link rel="stylesheet" href="{% static 'css/regis.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="form-container">
+    <h2>Formulario de Postulación para "{{ vacante.titulo }}"</h2>
+    <p class="form-description">Complete todos los campos requeridos para postular a esta vacante</p>
+    
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        
+        {% for field in form %}
+        <div class="form-field {% if field.field.required %}required{% endif %}">
+            {{ field.label_tag }}
+            {{ field }}
+            {% if field.help_text %}
+                <p class="helptext">{{ field.help_text }}</p>
+            {% endif %}
+            {% for error in field.errors %}
+                <p class="error-message">{{ error }}</p>
+            {% endfor %}
+        </div>
+        {% endfor %}
+        
+        <div class="submit-container">
+            <button type="submit" class="btn-submit">Enviar Postulación</button>
+            <a href="{% url 'vacantes:vacante_publica_lista' %}" class="btn-cancel">Cancelar</a>
+        </div>
+    </form>
+</div>
+{% endblock %}

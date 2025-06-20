@@ -1,0 +1,97 @@
+{% extends 'HeaderDashboardEmp.html' %}
+{% load static %}
+
+{% block extra_head %}
+<link rel="icon" href="{% static 'images/Nwe.png' %}" type="image/png">
+<link rel="stylesheet" href="{% static 'css/ListVacante.css' %}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="vacante-header">
+            <div class="back-button-container">
+                <a href="{% url 'postulaciones:postulaciones_vacantes_empresa_lista' %}" class="back-button">
+                    <i class="fas fa-arrow-left"></i> Atrás
+                </a>
+            </div>
+        </div>
+        
+        <div class="vacante-card">
+            <div class="card-body">
+                <h1 class="vacante-title">Detalle de la Postulación</h1>
+                <div class="card-header">
+                    <h2 class="empresa-name">Vacante: {{ postulacion.vacante.titulo }}</h2>
+                    <span class="estado-badge {% if postulacion.status == 'Aceptada' %}activo{% else %}inactivo{% endif %}">
+                        {{ postulacion.status }}
+                    </span>
+                </div>
+
+                <div class="section">
+                    <h3 class="section-title">Información del Postulante</h3>
+                    <div class="details-grid">
+                        <div class="detail-item">
+                            <span class="detail-label">Postulante:</span>
+                            <span class="detail-value">{{ postulacion.estudiante.user.username }}</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Email:</span>
+                            <span class="detail-value">{{ postulacion.estudiante.user.email }}</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Fecha Postulación:</span>
+                            <span class="detail-value">{{ postulacion.fecha_postulacion|date:"d M, Y H:i" }}</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Nombre Completo:</span>
+                            <span class="detail-value">{{ postulacion.nombre_completo }}</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Edad:</span>
+                            <span class="detail-value">{{ postulacion.edad }}</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Institución:</span>
+                            <span class="detail-value">{{ postulacion.institucion }}</span>
+                        </div>
+                    </div>
+                </div>
+
+                {% if postulacion.motivo %}
+                <div class="section">
+                    <h3 class="section-title">Motivo de Aplicación</h3>
+                    <div class="section-content">
+                        {{ postulacion.motivo|linebreaksbr }}
+                    </div>
+                </div>
+                {% endif %}
+
+                <div class="section">
+                    <h3 class="section-title">Documentos Adjuntos</h3>
+                    <div class="section-content">
+                        {% if postulacion.cv %}
+                            <a href="{{ postulacion.cv.url }}" target="_blank" class="btn-aplicar">
+                                <i class="fas fa-download"></i> Descargar CV
+                            </a>
+                        {% else %}
+                            <p class="text-muted">El estudiante no ha subido un CV para esta postulación.</p>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h3 class="section-title">Cambiar Estado de la Postulación</h3>
+                    <form method="post" class="section-content text-center">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            {{ form.as_p }}
+                        </div>
+                        <button type="submit" class="btn-aplicar">
+                            Actualizar Estado
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

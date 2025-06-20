@@ -1,0 +1,61 @@
+{% extends "HeaderDashboardEst.html" %}
+{% load static %}
+
+{% block title %}Dashboard Estudiante{% endblock %}
+
+{% block extra_head %}
+<link rel="icon" href="{% static 'images/Nwe.png' %}" type="image/png">
+<link rel="stylesheet" href="{% static 'css/Dash.css' %}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+{% endblock %}
+
+{% block content %}
+<div class="dashboard-exact-container">
+    <!-- Panel Lateral -->
+    <div class="profile-sidebar">
+        <div class="profile-card">
+            <div class="logo-circle">
+                <div class="dual-leaf-logo">
+                    <i class="fas fa-user-graduate primary-icon"></i>
+                </div>
+            </div>
+            <h2 class="welcome-title">¡Hola <span class="dynamic-company-name">{{ user.username }}!</span></h2>
+            <p class="description-text">Explora oportunidades y gestiona tus postulaciones.</p>
+            <a href="#" class="edit-profile-button">
+                <i class="fas fa-user-edit"></i> Editar perfil
+            </a>
+        </div>
+    </div>
+
+    <!-- Contenido Principal -->
+    <div class="main-content-area">
+        <div class="action-cards-container">
+            <a href="{% url 'vacantes:vacante_publica_lista' %}" class="action-card publications-card">
+                <div class="card-icon">
+                    <i class="fas fa-briefcase"></i>
+                </div>
+                <div class="card-label">Vacantes disponibles</div>
+            </a>
+            
+            <a href="{% url 'postulaciones:ver_postulaciones' %}" class="action-card applications-card">
+                <div class="card-icon">
+                    <i class="fas fa-file-alt"></i>
+                </div>
+                <div class="card-label">Mis postulaciones</div>
+            </a>
+        </div>
+
+        <div class="section-divider"></div>
+
+        <div class="company-description-box">
+            <h3 class="section-title">
+                <i class="fas fa-bullhorn"></i> Próximas oportunidades
+            </h3>
+            <p class="description-text">
+                Aquí podrás ver las vacantes disponibles y el estado de tus postulaciones.
+                ¡No pierdas la oportunidad de encontrar la práctica perfecta para ti!
+            </p>
+        </div>
+    </div>
+</div>
+{% endblock %}

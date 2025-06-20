@@ -1,0 +1,64 @@
+{% extends 'HeaderDashboardEst.html' %}
+{% load static %}
+
+{% block title %}{{ titulo }}{% endblock %}
+
+{% block extra_head %}
+<link rel="icon" href="{% static 'images/Nwe.png' %}" type="image/png">
+<link rel="stylesheet" href="{% static 'css/vacantes.css' %}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="header-left">
+        <a href="{% url 'dashboards:dashboard_estudiante' %}" class="back-link">
+            <i class="fas fa-arrow-left"></i> Atrás
+        </a>
+        <h2 class="mb-4">{{ titulo }}</h2>
+    </div>
+
+    {% if postulaciones %}
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Vacante</th>
+                    <th>Empresa</th>
+                    <th>Estado</th>
+                    <th>Fecha</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for post in postulaciones %}
+                <tr>
+                    <td>{{ post.vacante.titulo }}</td>
+                    <td>{{ post.vacante.empresa.nombre_empresa }}</td>
+                    <td>
+                        <span class="badge 
+                            {% if post.status == 'Aceptada' %}bg-success
+                            {% elif post.status == 'Rechazada' %}bg-danger
+                            {% elif post.status == 'Entrevista' %}bg-info text-white
+                            {% else %}bg-warning text-dark{% endif %}">
+                            {{ post.status }}
+                        </span>
+                    </td>
+                    <td>{{ post.fecha_postulacion|date:"d/m/Y H:i" }}</td>
+                    <td>
+                        {% if post.status == 'Pendiente' %}
+                        <a href="#" class="btn btn-sm btn-danger">Cancelar</a>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+    <div class="alert alert-info">
+        No tienes postulaciones registradas.
+    </div>
+    {% endif %}
+</div>
+{% endblock %}
