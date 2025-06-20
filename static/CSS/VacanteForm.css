@@ -1,0 +1,171 @@
+/* Estilos principales para el formulario */
+.vacancy-form-container {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 0 1.5rem;
+}
+
+.form-header {
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+.form-header h1 {
+    color: #2c3e50;
+    font-size: 1.8rem;
+    font-weight: 600;
+    padding-bottom: 0.5rem;
+    display: inline-block;
+}
+
+/* Estilos para las secciones del formulario */
+.form-section {
+    margin-bottom: 2.5rem;
+    padding-bottom: 1.5rem;
+}
+
+.section-title {
+    color: #5E35B1;
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+    font-weight: 500;
+    border-bottom: 2px solid #D1C4E9;
+    padding-bottom: 0.5rem;
+}
+
+/* Sistema de columnas */
+.form-row {
+    display: flex;
+    gap: 1.5rem; /* controla el espacio entre columnas */
+    margin-bottom: -2rem;
+}
+
+/* Añade espaciado horizontal entre columnas en filas dobles y triples */
+.triple-column .form-column,
+.double-column .form-column {
+    margin-right: 1.5rem; /* espacio entre columnas */
+}
+
+/* Elimina margen derecho en la última columna de cada fila */
+.triple-column .form-column:last-child,
+.double-column .form-column:last-child {
+    margin-right: 0;
+}
+
+.form-column {
+    flex: 1;
+    min-width: 0; /* Evita problemas de desbordamiento */
+}
+
+/* Estilos para los campos de formulario */
+.form-group {
+    margin-bottom: 3rem;
+}
+
+.form-label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    color: #2c3e50;
+}
+
+/* Estilos para inputs y textareas */
+.form-control {
+    
+    width: 100%;
+    padding: 0.75rem;
+    border: 2px solid #D1C4E9;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    background-color: white;
+}
+
+.form-control:focus {
+    border-color: #7E57C2;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(126, 87, 194, 0.2);
+}
+
+.form-control::placeholder {
+    color: #BDBDBD;
+}
+
+/* Textareas específicas */
+textarea.form-control {
+    min-height: 120px;
+    resize: vertical;
+}
+
+.form-actions { 
+    display: flex;
+    justify-content: center; /* Centrado horizontal */
+    gap: 1.5rem;
+    margin-top: 3rem;
+}
+
+.btn-primary {
+    border-radius: 15px;
+    background-color: #3949AB;
+    color: white;
+    padding: 0.8rem 2rem;
+    border: 2px solid #3949AB;
+    font-weight: 700;         /* más grueso */
+    font-size: 1rem;        /* más grande */
+}
+
+.btn-secondary {
+    border-radius: 15px;
+    background-color: white;
+    color: #3949AB;
+    padding: 0.8rem 2rem;
+    border: 2px solid #3949AB;
+    font-weight: 700;         /* más grueso */
+    font-size: 1rem;        /* más grande */
+}
+
+.btn-primary:hover {
+    background-color: #303F9F;
+    border-color: #303F9F;
+}
+
+.btn-secondary:hover {
+    background-color: #F3E5F5;
+}
+
+/* Diseño responsive */
+@media (max-width: 992px) {
+    .triple-column {
+        flex-wrap: wrap;
+    }
+    
+    .triple-column .form-column {
+        flex: 0 0 48%; /* Dos columnas en tablet */
+        margin-bottom: 1rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .form-row,
+    .triple-column,
+    .double-column {
+        flex-direction: column;
+        gap: 0;
+    }
+    
+    .triple-column .form-column,
+    .double-column .form-column {
+        flex: 1 1 100%;
+        margin-bottom: 1rem;
+    }
+    
+    .form-actions {
+        flex-direction: column;
+    }
+    
+    .btn {
+        width: 100%;
+        justify-content: center;
+        margin-bottom: 0.5rem;
+    }
+}

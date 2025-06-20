@@ -1,0 +1,122 @@
+{% extends "HeaderDashboardEmp.html" %}
+{% load static %}
+
+{% block extra_head %}
+<link rel="icon" href="{% static 'images/Nwe.png' %}" type="image/png">
+<link rel="stylesheet" href="{% static 'css/ListVacante.css' %}">
+<link rel="stylesheet" href="{% static 'css/modals.css' %}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="vacante-detalle-container">
+        <div class="back-button-container">
+            <a href="{% url 'vacantes:vacante_empresa_lista' %}" class="back-button">
+                <i class="fas fa-arrow-left"></i> Atrás
+            </a>
+        </div>
+
+        <div class="vacante-header">
+            <div class="header-content">
+                <h1 class="vacante-title">{{ vacante.titulo }}</h1>
+                <div class="vacante-actions">
+                    <a href="{% url 'vacantes:actualizar_vacante' vacante.pk %}" class="btn-edit">
+                        <i class="fas fa-edit"></i> Editar
+                    </a>
+                    <button class="btn-delete" id="deleteBtn">
+                        <i class="fas fa-trash-alt"></i> Eliminar
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="vacante-card">
+            <div class="card-header">
+                <h2 class="empresa-name">{{ vacante.empresa.nombre_empresa }}</h2>
+                <span class="estado-badge {% if vacante.activo %}activo{% else %}inactivo{% endif %}">
+                    {% if vacante.activo %}Activa{% else %}Inactiva{% endif %}
+                </span>
+            </div>
+
+            <div class="card-body">
+                <div class="section">
+                    <h3 class="section-title">Descripción</h3>
+                    <div class="section-content">
+                        {{ vacante.descripcion|linebreaksbr }}
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h3 class="section-title">Requisitos</h3>
+                    <div class="section-content">
+                        {{ vacante.requerimientos|linebreaksbr }}
+                    </div>
+                </div>
+
+                <div class="details-grid">
+                    <div class="detail-item">
+                        <span class="detail-label">Ubicación:</span>
+                        <span class="detail-value">{{ vacante.ubicacion }}</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Publicado el:</span>
+                        <span class="detail-value">{{ vacante.fecha_publicada|date:"d M, Y H:i" }}</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Fecha Límite:</span>
+                        <span class="detail-value">{{ vacante.fecha_limite|date:"d M, Y" }}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal (oculto por defecto) -->
+    <div id="confirmModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <h3>Confirmar Eliminación de Vacante</h3>
+            <p>¿Estás seguro de que quieres eliminar la vacante "<strong>{{ vacante.titulo }}</strong>"? Esta acción es <strong>irreversible</strong> y eliminará también todas las postulaciones asociadas.</p>
+            <div class="modal-actions">
+                <form method="post" action="{% url 'vacantes:eliminar_vacante' vacante.pk %}" style="display: inline;">
+                    {% csrf_token %}
+                    <button type="submit" class="modal-btn confirm-btn">Sí, Eliminar</button>
+                </form>
+                <button class="modal-btn cancel-btn">Cancelar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const deleteBtn = document.getElementById('deleteBtn');
+    const modal = document.getElementById('confirmModal');
+    const cancelBtn = document.querySelector('.cancel-btn');
+
+    // Mostrar modal al hacer clic en Eliminar (sin transiciones)
+    deleteBtn.addEventListener('click', function(e) {
+        e.preventDefault();
+        modal.style.animation = 'none';
+        modal.style.transition = 'none';
+        modal.style.display = 'block';
+    });
+
+    // Ocultar modal al hacer clic en Cancelar (sin transiciones)
+    cancelBtn.addEventListener('click', function() {
+        modal.style.animation = 'none';
+        modal.style.transition = 'none';
+        modal.style.display = 'none';
+    });
+
+    // Ocultar modal al hacer clic fuera del contenido
+    window.addEventListener('click', function(e) {
+        if (e.target === modal) {
+            modal.style.animation = 'none';
+            modal.style.transition = 'none';
+            modal.style.display = 'none';
+        }
+    });
+});
+</script>
+{% endblock %}

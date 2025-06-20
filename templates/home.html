@@ -1,8 +1,68 @@
-{% extends "base.html" %}
+{% extends "HeaderInicial.html" %}
+{% load static %}
 
-{% block title %}Inicio{% endblock %}
+{% block title %}Train2Work - Plataforma de Prácticas Profesionales{% endblock %}
+
+{% block extra_head %}
+    <link rel="icon" href="{% static 'images/Nwe.png' %}" type="image/png">
+    <link rel="stylesheet" href="{% static 'css/landing.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+{% endblock %}
 
 {% block content %}
-    <h2>Bienvenido a la Plataforma de Prácticas Profesionales</h2>
-    <p>Conecta con empresas y postúlate fácilmente a oportunidades de prácticas como parte de tu trabajo de graduación.</p>
+<div class="landing-container">
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="hero-content">
+            <h1>¡Tu Futuro Profesional Comienza Aquí!</h1>
+            <p class="hero-subtitle">Accede a ofertas exclusivas, conecta con empresas y da el primer paso hacia tu futuro profesional.</p>
+            <a href="{% url 'login' %}" class="cta-button">¡COMENZA AHORA! <i class="fas fa-arrow-right"></i></a>
+        </div>
+        <div class="hero-image">
+            <img src="{% static 'images/Inicio.png' %}" alt="Estudiantes profesionales">
+        </div>
+    </section>
+
+    <!-- Steps Section -->
+    <section class="steps-section">
+        <h2>Consigue tu práctica ideal en 3 pasos</h2>
+        <div class="steps-container">
+            <div class="step-card">
+                <div class="step-icon">
+                    <i class="fas fa-user-edit"></i>
+                </div>
+                <h3>Crea tu perfil</h3>
+                <p>Regístrate y completa tu perfil con tus habilidades y CV.</p>
+            </div>
+            
+            <div class="step-card">
+                <div class="step-icon">
+                    <i class="fas fa-search"></i>
+                </div>
+                <h3>Busca ofertas</h3>
+                <p>Explora las diferentes opciones para comenzar experiencias profesionales.</p>
+            </div>
+            
+            <div class="step-card">
+                <div class="step-icon">
+                    <i class="fas fa-paper-plane"></i>
+                </div>
+                <h3>Postúlate y gana experiencia</h3>
+                <p>Envía tu candidatura y recibe respuestas de empresas.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section con Imagen -->
+    <section class="cta-section">
+        <div class="cta-image">
+            <img src="{% static 'images/final.png' %}" alt="Estudiante exitoso">
+        </div>
+        <div class="cta-content">
+            <h2>Tu Próximo Gran Paso Te Espera</h2>
+            <p>¿Listo para dar el salto y empezar a construir tu futuro profesional? No dejes que la búsqueda de prácticas te abrume. En Train2Work, simplificamos el proceso para que te conectes con las empresas que están buscando talento joven como el tuyo. Tu experiencia profesional está a solo un clic de distancia.</p>
+            <a href="#" class="cta-button secondary">Crea tu cuenta ahora <i class="fas fa-user-plus"></i></a>
+        </div>
+    </section>
+</div>
 {% endblock %}

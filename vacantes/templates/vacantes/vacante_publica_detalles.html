@@ -1,0 +1,78 @@
+{% extends "HeaderDashboardEst.html" %}
+{% load static %}
+
+{% block extra_head %}
+<link rel="icon" href="{% static 'images/Nwe.png' %}" type="image/png">
+<link rel="stylesheet" href="{% static 'css/ListVacante.css' %}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="vacante-detalle-container">
+        <div class="back-button-container">
+            <a href="{% url 'vacantes:vacante_publica_lista' %}" class="back-button">
+                <i class="fas fa-arrow-left"></i> Ver otras ofertas de vacantes
+            </a>
+        </div>
+        
+        <div class="vacante-header">
+            <h1 class="vacante-title">{{ vacante.titulo }}</h1>
+            <div class="header-actions">
+                {% if user.is_authenticated %}
+                    {% if user.estudianteprofile %}
+                        <a href="{% url 'postulaciones:postular_vacante' vacante.id %}" class="btn-aplicar">
+                            Aplicar a esta Vacante
+                        </a>
+                    {% elif user.empresaprofile %}
+                        <p class="text-muted"><i class="fas fa-building"></i> Modo empresa</p>
+                    {% else %}
+                        <p class="text-muted"><i class="fas fa-exclamation-circle"></i> Perfil requerido</p>
+                    {% endif %}
+                {% else %}
+                    <a href="{% url 'login' %}" class="btn-aplicar">
+                        <i class="fas fa-sign-in-alt"></i> Iniciar Sesión para Aplicar
+                    </a>
+                {% endif %}
+            </div>
+        </div>
+        
+        <div class="vacante-card">
+            <div class="card-header">
+                <h2 class="empresa-name">Publicado por: {{ vacante.empresa.nombre_empresa }}</h2>
+            </div>
+            
+            <div class="card-body">
+                <div class="section">
+                    <h3 class="section-title">Descripción</h3>
+                    <div class="section-content">
+                        {{ vacante.descripcion|linebreaksbr }}
+                    </div>
+                </div>
+                
+                <div class="section">
+                    <h3 class="section-title">Requisitos</h3>
+                    <div class="section-content">
+                        {{ vacante.requerimientos|linebreaksbr }}
+                    </div>
+                </div>
+                
+                <div class="details-grid">
+                    <div class="detail-item">
+                        <span class="detail-label">Ubicación:</span>
+                        <span class="detail-value">{{ vacante.ubicacion }}</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Publicado el:</span>
+                        <span class="detail-value">{{ vacante.fecha_publicada|date:"d M, Y" }}</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Fecha Límite:</span>
+                        <span class="detail-value">{{ vacante.fecha_limite|date:"d M, Y" }}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

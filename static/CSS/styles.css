@@ -1,0 +1,283 @@
+/* Importar la fuente */
+@import url('https://fonts.googleapis.com/css2?family=Hind+Vadodara:wght@300;400;700&display=swap');
+
+/* --- Estilos Generales --- */
+body {
+    font-family: 'Hind Vadodara', sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box; /* Fundamental para el control del box model */
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background-color: #ffffff;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* --- HEADER --- */
+header {
+    background-color: #FFFFFF;
+    padding: 15px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    width: 100%;
+    box-sizing: border-box; /* Asegurar que padding no añada ancho extra */
+}
+
+/* Contenedores del header */
+header .header-left,
+header .header-center,
+header .header-right {
+    display: flex;
+    align-items: center; /* Para centrar verticalmente sus contenidos */
+}
+
+/* Logo de Train2Work en el Header */
+header .header-logo {
+    display: block; /* Asegura que la imagen se comporte como un bloque */
+    height: 40px;
+    width: auto;
+    object-fit: contain;
+}
+
+header nav a {
+    color: #333333; /* Color normal */
+    font-size: 1.1em;
+    font-weight: 400;
+    margin-right: 30px;
+    transition: color 0.3s ease, opacity 0.3s ease; /* Añade transición para opacidad */
+    white-space: nowrap;
+}
+
+header nav a:hover {
+    color: #6a0dad;
+}
+
+/* Estilo para el enlace activo */
+header nav a.active-nav {
+    color: #6a0dad; /* Color del link activo, por ejemplo, el mismo que el hover */
+    font-weight: 700; /* Lo hace más negrita */
+    /* O si quieres atenuarlo, podrías usar: */
+    /* opacity: 0.6; */
+    /* color: #999999; */
+    /* text-decoration: underline; /* O un subrayado */
+}
+
+/* Botón de Login*/
+.btn-login {
+    background-color: #3A2F6D;
+    color: white;
+    padding: 10px 25px;
+    border-radius: 25px;
+    font-weight: 400;
+    transition: background-color 0.3s ease;
+    border: none;
+    margin-left: -100px;
+    white-space: nowrap;
+}
+
+.btn-login:hover {
+    background-color: #2e265c;
+}
+
+/* --- Estilos Específicos para el Ícono de Campana (Header Right) --- */
+.header-right {
+    /* Fondo y forma circular */
+    background-color: #E6FFF5; /* Verde claro */
+    border-radius: 50%;       /* Hace el fondo circular */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05); /* Sutil sombra */
+
+    /* Dimensiones fijas para asegurar el círculo */
+    width: 40px;  /* Ancho del círculo */
+    height: 40px; /* Alto del círculo (igual que el ancho para ser perfecto) */
+
+    /* Centrado del ícono dentro del círculo */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* No se necesita padding si width/height y flexbox centran el icono correctamente */
+}
+
+.header-right .right-icon {
+    /* Tamaño del ícono de la campana dentro del círculo */
+    height: 20px; /* Ajusta según el tamaño de tu SVG */
+    width: 20px;  /* Ajusta según el tamaño de tu SVG */
+    object-fit: contain;
+}
+
+
+/* --- MAIN CONTENT --- */
+main {
+    flex: 1; /* Permite que el contenido principal ocupe el espacio restante */
+    padding: 0;
+    max-width: 100%;
+    margin-top: 0px; /* Ya el header es sticky, no necesita margen superior */
+    background-color: transparent;
+    border-radius: 0;
+    box-shadow: none;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+
+/* --- FOOTER --- */
+footer {
+    background-color: #2A143A;
+    color: white;
+    padding: 30px 40px;
+    text-align: center;
+    font-size: 0.9em;
+    display: flex;
+    flex-direction: row; /* En pantallas grandes, horizontal */
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    box-sizing: border-box;
+    flex-wrap: wrap; /* Permite que los elementos se envuelvan en pantallas pequeñas */
+}
+
+/* Contenido del Footer (logo y navegación) */
+footer .footer-content {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto; /* Centrar el contenido del footer */
+    justify-content: space-between;
+}
+
+/* Logo de Train2Work en el Footer */
+footer .footer-logo {
+    height: 50px;
+    width: auto;
+    background-color: #FFFFFF;
+    padding: 10px;
+    border-radius: 10px;
+    /* Ajusta este margen según el diseño, 250px parece mucho */
+    margin-left: 250px; /* Considera si este margen es realmente deseado */
+}
+
+/* Navegación del Footer */
+footer .footer-nav {
+    display: flex;
+    justify-content: center;
+    gap: 30px; /* Espacio entre los enlaces */
+    flex-wrap: wrap;
+    flex-grow: 1; /* Permite que la navegación ocupe espacio extra si el logo no está presente */
+}
+
+footer .footer-nav a {
+    color: white;
+    font-size: 1em;
+    font-weight: 400;
+    transition: color 0.3s ease;
+    white-space: nowrap;
+}
+
+footer .footer-nav a:hover {
+    color: #FF69B4; /* Color de hover para los enlaces del footer */
+}
+
+/* Copyright del Footer */
+footer p {
+    color: rgba(255, 255, 255, 0.7);
+    width: 100%; /* Asegura que el párrafo ocupe todo el ancho */
+    text-align: center;
+    margin-top: 20px;
+}
+
+/* --- MEDIA QUERIES para responsividad --- */
+
+/* Tabletas y pantallas medianas */
+@media (max-width: 768px) {
+    header {
+        flex-direction: column; /* Apila los elementos del header */
+        padding: 10px 20px;
+    }
+
+    header .header-left,
+    header .header-center, /* Aseguramos que el centro también se comporte bien */
+    header .header-right {
+        margin-top: 10px; /* Espacio entre los elementos apilados */
+    }
+
+    header nav {
+        margin-top: 10px; /* Espacio entre la navegación y otros elementos */
+        display: flex;
+        flex-wrap: wrap; /* Permite que los enlaces de navegación se envuelvan */
+        justify-content: center; /* Centra los enlaces */
+    }
+
+    header nav a {
+        margin: 0 15px; /* Ajusta el margen para tabletas */
+    }
+
+    .btn-login {
+        margin-top: 10px;
+    }
+
+    main {
+        padding: 15px 20px;
+        margin: 15px auto;
+    }
+
+    footer {
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 20px;
+    }
+
+    footer .footer-content {
+        flex-direction: column;
+        gap: 15px;
+        justify-content: center;
+        align-items: center;
+    }
+
+    footer .footer-logo {
+        margin-left: 0; /* Elimina el margen izquierdo fijo en móvil */
+        margin-bottom: 15px;
+    }
+
+    footer .footer-nav {
+        flex-direction: column; /* Apila los enlaces del footer */
+        gap: 10px;
+        flex-grow: unset;
+    }
+
+    footer p {
+        margin-top: 15px;
+    }
+}
+
+/* Teléfonos y pantallas pequeñas */
+@media (max-width: 480px) {
+    header {
+        padding: 10px 15px;
+    }
+    header .header-logo {
+        height: 35px;
+    }
+    .btn-login {
+        padding: 8px 20px;
+        font-size: 0.9em;
+    }
+    main {
+        padding: 10px 15px;
+        margin: 10px auto;
+    }
+    footer .footer-logo {
+        height: 40px;
+    }
+}

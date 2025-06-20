@@ -1,0 +1,298 @@
+/* Dash.css - Versión con animaciones controladas */
+:root {
+    --primary-purple: #7E57C2;
+    --dark-purple: #5E35B1;
+    --light-purple: #D1C4E9;
+    --pink-accent: #EC407A;
+    --light-pink: #F8BBD0;
+    --white: #FFFFFF;
+    --light-gray: #F5F5F5;
+    --medium-gray: #E0E0E0;
+    --dark-gray: #424242;
+    --blue-dark: #1565C0;
+    --blue-light: #BBDEFB;
+}
+
+/* Animaciones controladas */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes subtleScale {
+    from { transform: scale(0.98); }
+    to { transform: scale(1); }
+}
+
+.dashboard-exact-container {
+    display: grid;
+    grid-template-columns: 320px 1fr;
+    gap: 30px;
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 0 20px;
+    min-height: 80vh;
+    animation: fadeIn 0.5s ease-out;
+}
+
+/* Panel Lateral Estilizado */
+.profile-sidebar {
+    position: relative;
+    height: fit-content;
+    align-self: start;
+}
+
+.profile-card {
+    background: linear-gradient(145deg, #f3e5f5, #e1bee7);
+    border-radius: 16px;
+    padding: 40px 25px;
+    box-shadow: 0 8px 20px rgba(126, 87, 194, 0.15);
+    position: sticky;
+    top: 20px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: fit-content;
+    animation: subtleScale 0.4s ease-out;
+}
+
+.logo-circle {
+    width: 120px;
+    height: 120px;
+    background-color: var(--blue-light);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 25px;
+    box-shadow: 0 4px 12px rgba(21, 101, 192, 0.2);
+    transition: transform 0.3s ease;
+}
+
+.logo-circle:hover {
+    transform: scale(1.05);
+}
+
+.dual-leaf-logo {
+    position: relative;
+    width: 60px;
+    height: 60px;
+}
+
+.primary-leaf {
+    color: var(--blue-dark);
+    font-size: 48px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    transition: all 0.3s ease;
+}
+
+.secondary-leaf {
+    color: var(--primary-purple);
+    font-size: 36px;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    transform: rotate(15deg);
+    transition: all 0.3s ease;
+}
+
+.dual-leaf-logo:hover .primary-leaf {
+    transform: rotate(-5deg);
+}
+
+.dual-leaf-logo:hover .secondary-leaf {
+    transform: rotate(20deg);
+}
+
+.welcome-title {
+    color: var(--dark-purple);
+    font-size: 22px;
+    font-weight: 600;
+    margin: 15px 0;
+    line-height: 1.4;
+}
+
+.dynamic-company-name {
+    display: block;
+    font-size: 26px;
+    color: var(--primary-purple);
+    margin-top: 8px;
+    transition: color 0.3s ease;
+}
+
+.edit-profile-button {
+    background-color: var(--dark-purple);
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 30px;
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 20px;
+    box-shadow: 0 4px 8px rgba(94, 53, 177, 0.3);
+    transition: all 0.3s ease;
+}
+
+.edit-profile-button:hover {
+    background-color: var(--primary-purple);
+    box-shadow: 0 6px 12px rgba(94, 53, 177, 0.4);
+    transform: translateY(-2px);
+}
+
+/* Área de Contenido Principal */
+.main-content-area {
+    background-color: var(--white);
+    border-radius: 16px;
+    padding: 40px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    animation: fadeIn 0.6s ease-out 0.2s both;
+}
+
+.section-title {
+    color: var(--dark-purple);
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+
+.company-description-box {
+    margin-bottom: 30px;
+}
+
+.description-text {
+    color: var(--dark-gray);
+    font-size: 15px;
+    line-height: 1.8;
+    white-space: pre-line;
+    animation: fadeIn 0.8s ease-out;
+}
+
+.section-divider {
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--medium-gray), transparent);
+    margin: 35px 0;
+}
+
+/* Tarjetas de Acción */
+.action-cards-container {
+    display: flex;
+    gap: 25px;
+    margin-top: 30px;
+}
+
+.action-card {
+    flex: 1;
+    min-width: 200px;
+    border-radius: 12px;
+    padding: 30px 20px;
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    animation: subtleScale 0.5s ease-out;
+}
+
+.action-card:nth-child(1) {
+    animation-delay: 0.3s;
+}
+
+.action-card:nth-child(2) {
+    animation-delay: 0.4s;
+}
+
+.action-card:hover {
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+    transform: translateY(-5px);
+}
+
+.publications-card {
+    background: linear-gradient(135deg, var(--primary-purple), var(--dark-purple));
+}
+
+.applications-card {
+    background: linear-gradient(135deg, var(--pink-accent), #D81B60);
+}
+
+.card-icon {
+    font-size: 32px;
+    color: var(--white);
+    margin-bottom: 15px;
+    transition: transform 0.3s ease;
+}
+
+.action-card:hover .card-icon {
+    transform: scale(1.1);
+}
+
+.card-label {
+    color: var(--white);
+    font-size: 17px;
+    font-weight: 500;
+    text-align: center;
+}
+
+/* Responsive Design */
+@media (max-width: 900px) {
+    .dashboard-exact-container {
+        grid-template-columns: 1fr;
+    }
+    
+    .profile-card {
+        position: relative;
+        top: auto;
+    }
+    
+    .action-cards-container {
+        flex-direction: column;
+    }
+}
+
+@media (max-width: 480px) {
+    .main-content-area {
+        padding: 30px 20px;
+    }
+    
+    .profile-card {
+        padding: 30px 20px;
+    }
+    
+    .welcome-title {
+        font-size: 20px;
+    }
+    
+    .dynamic-company-name {
+        font-size: 22px;
+    }
+    
+    .edit-profile-button {
+        padding: 10px 20px;
+        font-size: 14px;
+    }
+}
+
+/* Efectos especiales */
+.dynamic-company-name:hover {
+    color: var(--dark-purple);
+}
+
+/* Animación de carga suave */
+@keyframes pulse {
+    0% { opacity: 0.8; }
+    50% { opacity: 1; }
+    100% { opacity: 0.8; }
+}
+
+.loading-element {
+    animation: pulse 1.5s ease-in-out infinite;
+}

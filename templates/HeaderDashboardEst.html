@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}Mi Plataforma{% endblock %}</title>
+    <title>{% block title %}Train2Work{% endblock %}</title>
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 
     {% block extra_head %}
@@ -13,15 +13,17 @@
 <body>
     <header>
         <div class="header-left">
-            <nav>
-                <a href="{% url 'home' %}">Home</a>
-            </nav>
-        </div>
-        <div class="header-center">
             <img src="{% static 'images/t2w.png' %}" alt="Train2Work Logo" class="header-logo">
         </div>
+        <div class="header-center">
+            <nav>
+                <a href="{% url 'dashboards:dashboard_estudiante'%}">Home</a>
+                <a href="{% url 'vacantes:vacante_publica_lista' %}" class="btn btn-info">Vacantes</a>
+                <a href="{%url 'home' %}">Salir</a>
+            </nav>
+        </div>
         <div class="header-right">
-            <a href="{% url 'login' %}" class="btn-login">Iniciar Sesión</a>
+            <img src="{% static 'icons/bell.svg' %}" alt="Bell Icon" class="right-icon">
         </div>
     </header>
 

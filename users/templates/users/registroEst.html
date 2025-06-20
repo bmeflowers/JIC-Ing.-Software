@@ -1,11 +1,143 @@
-{% extends "base.html" %}
+{% extends "HeaderInicial.html" %}
+{% load static %}
+
 {% block title %}Registro Estudiante{% endblock %}
 
+{% block extra_head %}
+<link rel="icon" href="{% static 'images/Nwe.png' %}" type="image/png">
+    <link rel="stylesheet" href="{% static 'css/regis.css' %}">
+{% endblock %}
+
 {% block content %}
-<h2>Registro de Estudiante</h2>
-<form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Registrarse</button>
-</form>
+<div class="form-container">
+    <h2>Registar cuenta</h2>
+    <p class="form-description"></p>
+    
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        {# FILA 1: Nombre de usuario y Correo #}
+        <div class="form-field">
+            <label for="{{ form.username.id_for_label }}" {% if form.username.field.required %}class="required"{% endif %}>{{ form.username.label }}</label>
+            {{ form.username }}
+            {% if form.username.help_text %}
+                <span class="helptext">{{ form.username.help_text }}</span>
+            {% endif %}
+            {% for error in form.username.errors %}
+                <span class="error-message">{{ error }}</span>
+            {% endfor %}
+        </div>
+
+        <div class="form-field">
+            <label for="{{ form.email.id_for_label }}" {% if form.email.field.required %}class="required"{% endif %}>{{ form.email.label }}</label>
+            {{ form.email }}
+            {% if form.email.help_text %}
+                <span class="helptext">{{ form.email.help_text }}</span>
+            {% endif %}
+            {% for error in form.email.errors %}
+                <span class="error-message">{{ error }}</span>
+            {% endfor %}
+        </div>
+
+        {# FILA 2: Contraseña y Confirmar #}
+        <div class="form-field">
+            <label for="{{ form.password1.id_for_label }}" {% if form.password1.field.required %}class="required"{% endif %}>{{ form.password1.label }}</label>
+            {{ form.password1 }}
+            {% for error in form.password1.errors %}
+                <span class="error-message">{{ error }}</span>
+            {% endfor %}
+            <div class="password-rules-container">
+                <ul class="password-rules">
+                    <li>Tu contraseña no puede ser demasiado parecida a tus otros datos personales.</li>
+                    <li>Tu contraseña debe contener al menos 8 caracteres.</li>
+                    <li>Tu contraseña no puede ser una contraseña de uso común.</li>
+                    <li>Tu contraseña no puede ser totalmente numérica.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="form-field">
+            <label for="{{ form.password2.id_for_label }}" {% if form.password2.field.required %}class="required"{% endif %}>{{ form.password2.label }}</label>
+            {{ form.password2 }}
+            {% if form.password2.help_text %}
+                <span class="helptext">{{ form.password2.help_text }}</span>
+            {% endif %}
+            {% for error in form.password2.errors %}
+                <span class="error-message">{{ error }}</span>
+            {% endfor %}
+        </div>
+
+        {# FILA 3: Carrera y Semestre (encima de Habilidades y CV) #}
+        <div class="form-field">
+            <label for="{{ form.carrera.id_for_label }}" {% if form.carrera.field.required %}class="required"{% endif %}>{{ form.carrera.label }}</label>
+            {{ form.carrera }}
+            {% if form.carrera.help_text %}
+                <span class="helptext">{{ form.carrera.help_text }}</span>
+            {% endif %}
+            {% for error in form.carrera.errors %}
+                <span class="error-message">{{ error }}</span>
+            {% endfor %}
+        </div>
+
+        <div class="form-field">
+            <label for="{{ form.semestre.id_for_label }}" {% if form.semestre.field.required %}class="required"{% endif %}>{{ form.semestre.label }}</label>
+            {{ form.semestre }}
+            {% if form.semestre.help_text %}
+                <span class="helptext">{{ form.semestre.help_text }}</span>
+            {% endif %}
+            {% for error in form.semestre.errors %}
+                <span class="error-message">{{ error }}</span>
+            {% endfor %}
+        </div>
+
+        {# FILA 4: Habilidades y Añadir CV #}
+        <div class="form-field">
+            <label for="{{ form.habilidades.id_for_label }}" {% if form.habilidades.field.required %}class="required"{% endif %}>{{ form.habilidades.label }}</label>
+            {{ form.habilidades }}
+            {% if form.habilidades.help_text %}
+                <span class="helptext">{{ form.habilidades.help_text }}</span>
+            {% endif %}
+            {% for error in form.habilidades.errors %}
+                <span class="error-message">{{ error }}</span>
+            {% endfor %}
+        </div>
+
+        {# Campo CV personalizado #}
+        <div class="form-field">
+            <label for="id_cv" {% if form.cv.field.required %}class="required"{% endif %}>{{ form.cv.label }}</label>
+            <div class="cv-custom-input-wrapper">
+                <button type="button" class="btn-upload" id="cv_button_display">
+                    Subir archivo
+                    <input type="file" name="cv" id="id_cv" accept=".pdf,.doc,.docx" 
+                           style="position: absolute; left: 0; top: 0; width: 100%; height: 100%; opacity: 0; cursor: pointer; z-index: 1;" />
+                </button>
+                <span class="file-chosen-text" id="file_chosen_text">No file chosen</span>
+            </div>
+            {% for error in form.cv.errors %}
+                <span class="error-message">{{ error }}</span>
+            {% endfor %}
+        </div>
+
+        <div class="submit-container">
+            <button type="submit">Registrarse</button>
+        </div>
+    </form>
+</div>
+
+{# Script para manejar la selección del archivo CV #}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const fileInput = document.getElementById('id_cv');
+        const fileChosenText = document.getElementById('file_chosen_text');
+        
+        fileInput.addEventListener('change', function() {
+            if (fileInput.files.length > 0) {
+                fileChosenText.textContent = fileInput.files[0].name;
+            } else {
+                fileChosenText.textContent = 'No file chosen';
+            }
+        });
+    });
+</script>
+
 {% endblock %}
