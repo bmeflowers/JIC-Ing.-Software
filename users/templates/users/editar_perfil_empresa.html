@@ -1,0 +1,13 @@
+{% extends "HeaderInicial.html" %}
+{% block title %}Editar Perfil Empresa{% endblock %}
+
+{% block content %}
+<h2>Editar Perfil de Empresa</h2>
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+
+    <button type="submit" class="btn-guardar">Guardar Cambios</button>
+    <a href="{% url 'dashboards:dashboard_empresa' %}" class="btn-cancelar">Cancelar</a>
+</form>
+{% endblock %}

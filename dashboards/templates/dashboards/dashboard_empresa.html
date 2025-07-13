@@ -14,13 +14,17 @@
     <div class="profile-sidebar">
         <div class="profile-card">
             <div class="logo-circle">
-                <div class="dual-leaf-logo">
-                    <i class="fas fa-leaf primary-leaf"></i>
-                    <i class="fas fa-leaf secondary-leaf"></i>
-                </div>
+                {% if user.empresaprofile.logo %}
+                    <img src="{{ user.empresaprofile.logo.url }}" alt="Logo Empresa" class="company-logo">
+                {% else %}
+                    <div class="dual-leaf-logo">
+                        <i class="fas fa-leaf primary-leaf"></i>
+                        <i class="fas fa-leaf secondary-leaf"></i>
+                    </div>
+                {% endif %}
             </div>
             <h1 class="welcome-title">Bienvenido <span class="dynamic-company-name">{{ user.username }}</span></h1>
-            <a href="#" class="edit-profile-button">
+            <a href="{% url 'editar_perfil_empresa' %}" class="edit-profile-button">
                 <i class="fas fa-user-edit"></i> Editar Perfil
             </a>
         </div>

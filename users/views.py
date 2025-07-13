@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.forms import AuthenticationForm
-from .forms import EstudianteRegisterForm, EmpresaRegisterForm
+from .forms import EstudianteRegisterForm, EmpresaRegisterForm, EmpresaProfileForm
 from .models import EstudianteProfile, EmpresaProfile
 from django.contrib.auth.decorators import login_required
 
@@ -28,7 +28,7 @@ def registroEstudiante(request):
 
 def registroEmpresa(request):
     if request.method == 'POST':
-        form = EmpresaRegisterForm(request.POST)
+        form = EmpresaRegisterForm(request.POST, request.FILES)  # Agregar request.FILES
         if form.is_valid():
             user = form.save()
             EmpresaProfile.objects.create(
@@ -36,7 +36,8 @@ def registroEmpresa(request):
                 nombre_empresa=form.cleaned_data['nombre_empresa'],
                 rubro=form.cleaned_data['rubro'],
                 descripcion=form.cleaned_data['descripcion'],
-                sitio_web=form.cleaned_data['sitio_web']
+                sitio_web=form.cleaned_data['sitio_web'],
+                logo=form.cleaned_data.get('logo')  # Guardar logo
             )
             login(request, user)
             return redirect('dashboards:dashboard_empresa')
@@ -70,3 +71,17 @@ def perfilEstudiante(request):
 @login_required
 def perfilEmpresa(request):
     return redirect('dashboards:dashboard_empresa')
+
+@login_required
+def editar_perfil_empresa(request):
+    empresa = request.user.empresaprofile
+
+    if request.method == 'POST':
+        form = EmpresaProfileForm(request.POST, request.FILES, instance=empresa)
+        if form.is_valid():
+            form.save()
+            return redirect('dashboards:dashboard_empresa')
+    else:
+        form = EmpresaProfileForm(instance=empresa)
+
+    return render(request, 'users/editar_perfil_empresa.html', {'form': form})

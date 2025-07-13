@@ -3,6 +3,12 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
+from .models import EmpresaProfile
+
+class EmpresaProfileForm(forms.ModelForm):
+    class Meta:
+        model = EmpresaProfile
+        fields = ['nombre_empresa', 'rubro', 'descripcion', 'sitio_web', 'logo']
 
 class EstudianteRegisterForm(UserCreationForm):
     username = forms.CharField(
@@ -91,6 +97,8 @@ class EmpresaRegisterForm(UserCreationForm):
         widget=forms.URLInput(attrs={'placeholder': 'https://www.ejemplo.com/pagina-principal'})
     )
 
+    logo = forms.ImageField(label="Logo de la empresa", required=False)
+
     class Meta:
         model = User
-        fields = ['username', 'email', 'password1', 'password2', 'nombre_empresa', 'rubro', 'descripcion', 'sitio_web']
+        fields = ['username', 'email', 'password1', 'password2', 'nombre_empresa', 'rubro', 'descripcion', 'sitio_web', 'logo']

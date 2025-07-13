@@ -12,12 +12,15 @@ class EstudianteProfile(models.Model):
     def __str__(self):
         return self.user.username
 
+# models.py
 class EmpresaProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     nombre_empresa = models.CharField(max_length=100)
     rubro = models.CharField(max_length=100)
     descripcion = models.TextField(blank=True)
     sitio_web = models.URLField(blank=True)
+    logo = models.ImageField(upload_to='logos_empresas/', null=True, blank=True)  # Nuevo campo
 
     def __str__(self):
         return self.nombre_empresa
+

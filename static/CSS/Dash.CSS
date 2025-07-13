@@ -296,3 +296,10 @@
 .loading-element {
     animation: pulse 1.5s ease-in-out infinite;
 }
+
+.company-logo {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 50%;
+}
