@@ -10,5 +10,5 @@ urlpatterns = [
     path('perfil/estudiante/', views.perfilEstudiante, name='perfilEstudiante'),
     path('perfil/empresa/', views.perfilEmpresa, name='perfilEmpresa'),
     path('perfil/empresa/editar/', views.editar_perfil_empresa, name='editar_perfil_empresa'),
-
+    path('perfil/estudiante/editar/', views.editar_perfil_estudiante, name='editar_perfil_estudiante'),
 ]

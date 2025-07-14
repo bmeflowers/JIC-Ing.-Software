@@ -8,6 +8,7 @@ class EstudianteProfile(models.Model):
     semestre = models.PositiveIntegerField()
     habilidades = models.TextField(blank=True)
     cv = models.FileField(upload_to='cvs/', null=True, blank=True)
+    foto = models.ImageField(upload_to='fotos_estudiantes/', null=True, blank=True)  # Nuevo campo
 
     def __str__(self):
         return self.user.username

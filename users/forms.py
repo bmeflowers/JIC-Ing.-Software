@@ -4,6 +4,45 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from .models import EmpresaProfile
+from .models import EstudianteProfile
+
+class EstudianteProfileForm(forms.ModelForm):
+    # Campos del modelo User agregados al formulario
+    username = forms.CharField(label="Nombre de usuario", max_length=150)
+    email = forms.EmailField(label="Correo electrónico")
+
+    class Meta:
+        model = EstudianteProfile
+        fields = ['username', 'email', 'carrera', 'semestre', 'habilidades', 'cv', 'foto']
+
+    def __init__(self, *args, **kwargs):
+        self.user = kwargs.pop('user', None)  # Se pasa desde la vista
+        super().__init__(*args, **kwargs)
+        if self.user:
+            self.fields['username'].initial = self.user.username
+            self.fields['email'].initial = self.user.email
+
+    def clean_username(self):
+        username = self.cleaned_data['username']
+        if User.objects.filter(username=username).exclude(pk=self.user.pk).exists():
+            raise forms.ValidationError("Este nombre de usuario ya está en uso.")
+        return username
+
+    def clean_email(self):
+        email = self.cleaned_data['email']
+        if User.objects.filter(email=email).exclude(pk=self.user.pk).exists():
+            raise forms.ValidationError("Este correo electrónico ya está en uso.")
+        return email
+
+    def save(self, commit=True):
+        profile = super().save(commit=False)
+        user = self.user
+        user.username = self.cleaned_data['username']
+        user.email = self.cleaned_data['email']
+        if commit:
+            user.save()
+            profile.save()
+        return profile
 
 class EmpresaProfileForm(forms.ModelForm):
     class Meta:
@@ -49,9 +88,11 @@ class EstudianteRegisterForm(UserCreationForm):
         required=False
     )
 
+    foto = forms.ImageField(label="Foto de perfil", required=False)
+    
     class Meta:
         model = User
-        fields = ['username', 'email', 'password1', 'password2', 'carrera', 'semestre', 'habilidades', 'cv']
+        fields = ['username', 'email', 'password1', 'password2', 'carrera', 'semestre', 'habilidades', 'cv', 'foto']
 
 
 class EmpresaRegisterForm(UserCreationForm):

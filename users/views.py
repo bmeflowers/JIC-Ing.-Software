@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.forms import AuthenticationForm
-from .forms import EstudianteRegisterForm, EmpresaRegisterForm, EmpresaProfileForm
+from .forms import EstudianteRegisterForm, EmpresaRegisterForm, EmpresaProfileForm, EstudianteProfileForm
 from .models import EstudianteProfile, EmpresaProfile
 from django.contrib.auth.decorators import login_required
 
@@ -18,7 +18,8 @@ def registroEstudiante(request):
                 carrera=form.cleaned_data['carrera'],
                 semestre=form.cleaned_data['semestre'],
                 habilidades=form.cleaned_data['habilidades'],
-                cv=form.cleaned_data.get('cv')
+                cv=form.cleaned_data.get('cv'),
+                foto=form.cleaned_data.get('foto')  # Guardar la imagen
             )
             login(request, user)
             return redirect('dashboards:dashboard_estudiante')
@@ -85,3 +86,17 @@ def editar_perfil_empresa(request):
         form = EmpresaProfileForm(instance=empresa)
 
     return render(request, 'users/editar_perfil_empresa.html', {'form': form})
+
+@login_required
+def editar_perfil_estudiante(request):
+    estudiante = request.user.estudianteprofile
+
+    if request.method == 'POST':
+        form = EstudianteProfileForm(request.POST, request.FILES, instance=estudiante, user=request.user)
+        if form.is_valid():
+            form.save()
+            return redirect('dashboards:dashboard_estudiante')
+    else:
+        form = EstudianteProfileForm(instance=estudiante, user=request.user)
+
+    return render(request, 'users/editar_perfil_estudiante.html', {'form': form})

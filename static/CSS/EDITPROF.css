@@ -1,0 +1,138 @@
+@import url('https://fonts.googleapis.com/css2?family=Hind+Vadodara:wght@300;400;700&display=swap');
+
+body {
+    font-family: 'Hind Vadodara', sans-serif;
+}
+
+.form-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 30px;
+}
+
+h2 {
+    color: #374151;
+    font-size: 2rem;
+    text-align: center;
+    margin-bottom: 30px;
+    margin-top: 1px;
+}
+
+.form-columns {
+    display: flex;
+    gap: 40px;
+    flex-wrap: wrap;
+}
+
+.left-column,
+.right-column {
+    flex: 1;
+    min-width: 350px;
+}
+
+.left-column {
+    text-align: center;
+}
+
+.profile-photo {
+    width: 180px;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin-bottom: 15px;
+    border: 3px solid #6D28D9;
+    display: inline-block;
+}
+
+/* Estilo para inputs y textarea */
+input[type="text"],
+input[type="email"],
+input[type="number"],
+input[type="file"],
+input[type="url"],
+textarea {
+    width: 100%;
+    padding: 8px;
+    border: 2px solid #6D28D9;
+    border-radius: 10px;
+    font-size: 14px;
+    box-sizing: border-box;
+    font-family: 'Hind Vadodara', sans-serif;
+}
+
+textarea {
+    resize: vertical;
+    min-height: 80px;
+}
+
+.habilidades-box textarea,
+.habilidades-box input {
+    width: 100%;
+    height: 40px;
+    margin: 0 auto;
+    display: block;
+    resize: none;
+    font-family: 'Hind Vadodara', sans-serif;
+    font-size: 14px;
+    padding: 6px 8px;
+    border-radius: 10px;
+    border: 2px solid #6D28D9;
+    box-sizing: border-box;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-buttons {
+    margin-top: 30px;
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+}
+
+/* Botón "Guardar cambios" */
+.form-buttons button[type="submit"] {
+    background-color: #14173A;
+    color: white;
+    border: none;
+    padding: 10px 16px;
+    font-size: 14px;
+    border-radius: 25px;
+    cursor: pointer;
+}
+
+/* Botón "Descartar cambios" */
+.form-buttons button[type="button"] {
+    background-color: transparent;
+    color: #14173A;
+    border: 2px solid #14173A;
+    padding: 10px 16px;
+    font-size: 14px;
+    border-radius: 25px;
+    cursor: pointer;
+}
+
+/* Ocultar inputs file originales */
+input[type="file"] {
+    display: none;
+}
+
+/* Botón personalizado morado */
+.custom-file-button {
+    background-color: #2e1555;  /* Morado */
+    color: white;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-family: 'Hind Vadodara', sans-serif;
+    font-size: 14px;
+    margin-top: 6px;
+    display: inline-block;
+    transition: background-color 0.3s ease;
+}
+.custom-file-button:hover {
+    background-color: #4b1e99; /* Morado más oscuro */
+}
+

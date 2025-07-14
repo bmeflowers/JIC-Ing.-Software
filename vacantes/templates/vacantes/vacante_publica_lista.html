@@ -46,48 +46,50 @@
         </div>
     </div>
 
-    {% for vacante in vacantes %}
-    <div class="vacancy-card">
-        <div class="card-header">
-            <div class="company-logo">
-                {% if vacante.empresa.logo %}
-                <img src="{{ vacante.empresa.logo.url }}" alt="{{ vacante.empresa.nombre_empresa }}">
-                {% else %}
-                <i class="fas fa-building fa-2x text-light"></i>
-                {% endif %}
+    <!-- Aquí agregamos el contenedor grid -->
+    <div class="vacancies-grid">
+        {% for vacante in vacantes %}
+        <div class="vacancy-card">
+            <div class="card-header">
+                <div class="company-logo">
+                    {% if vacante.empresa.logo %}
+                    <img src="{{ vacante.empresa.logo.url }}" alt="{{ vacante.empresa.nombre_empresa }}">
+                    {% else %}
+                    <i class="fas fa-building fa-2x text-light"></i>
+                    {% endif %}
+                </div>
+                <div>
+                    <h3 class="card-title">{{ vacante.titulo }}</h3>
+                    <p class="card-subtitle">{{ vacante.empresa.nombre_empresa }}</p>
+                </div>
             </div>
-            <div>
-                <h3 class="card-title">{{ vacante.titulo }}</h3>
-                <p class="card-subtitle">{{ vacante.empresa.nombre_empresa }}</p>
+            <div class="card-body">
+                <div class="vacancy-meta">
+                    <div class="meta-item location-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>{{ vacante.ubicacion }}</span>
+                    </div>
+                    <div class="meta-item">
+                        <span>{{ vacante.get_tipo_jornada_display }}</span>
+                    </div>
+                    {% if vacante.duracion %}
+                    <div class="meta-item">
+                        <i class="fas fa-hourglass-half"></i>
+                        <span>Duración: {{ vacante.duracion }}</span>
+                    </div>
+                    {% endif %}
+                </div>
+                <p class="vacancy-description">{{ vacante.descripcion|truncatechars:120 }}</p>
+                <a href="{% url 'vacantes:vacante_publica_detalles' vacante.pk %}" class="details-button">
+                    Ver Detalles
+                </a>
             </div>
         </div>
-        <div class="card-body">
-            <div class="vacancy-meta">
-                <div class="meta-item location-item">  <!-- Añadida clase location-item -->
-                    <i class="fas fa-map-marker-alt"></i>
-                    <span>{{ vacante.ubicacion }}</span>
-                </div>
-                <div class="meta-item">
-                    <span>{{ vacante.get_tipo_jornada_display }}</span>
-                </div>
-                {% if vacante.duracion %}
-                <div class="meta-item">
-                    <i class="fas fa-hourglass-half"></i>
-                    <span>Duración: {{ vacante.duracion }}</span>
-                </div>
-                {% endif %}
-            </div>
-            <p class="vacancy-description">{{ vacante.descripcion|truncatechars:120 }}</p>
-            <a href="{% url 'vacantes:vacante_publica_detalles' vacante.pk %}" class="details-button">
-                Ver Detalles
-            </a>
-        </div>
+        {% endfor %}
     </div>
-    {% endfor %}
 
     {% if vacantes %}
-    </div>
-
+    <!-- Cierre de div.container ya está arriba -->
     {% if is_paginated %}
     <div class="pagination">
         {% if page_obj.has_previous %}

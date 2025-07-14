@@ -15,13 +15,17 @@
     <div class="profile-sidebar">
         <div class="profile-card">
             <div class="logo-circle">
-                <div class="dual-leaf-logo">
-                    <i class="fas fa-user-graduate primary-icon"></i>
-                </div>
+                {% if user.estudianteprofile.foto %}
+                    <img src="{{ user.estudianteprofile.foto.url }}" alt="Foto de perfil" class="profile-img">
+                {% else %}
+                    <div class="dual-leaf-logo">
+                        <i class="fas fa-user-graduate primary-icon"></i>
+                    </div>
+                {% endif %}
             </div>
             <h2 class="welcome-title">¡Hola <span class="dynamic-company-name">{{ user.username }}!</span></h2>
             <p class="description-text">Explora oportunidades y gestiona tus postulaciones.</p>
-            <a href="#" class="edit-profile-button">
+            <a href="{% url 'editar_perfil_estudiante' %}" class="edit-profile-button">
                 <i class="fas fa-user-edit"></i> Editar perfil
             </a>
         </div>

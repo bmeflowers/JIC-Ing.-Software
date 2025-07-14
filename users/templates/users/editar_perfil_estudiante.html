@@ -1,0 +1,94 @@
+{% extends "HeaderDashboardEst.html" %}
+{% load static %}
+
+{% block title %}Editar Perfil{% endblock %}
+
+{% block extra_head %}
+<link rel="icon" href="{% static 'images/Nwe.png' %}" type="image/png">
+<link rel="stylesheet" href="{% static 'css/EDITPROF.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="form-container">
+    <h2>Editar Perfil Estudiante</h2>
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="form-columns">
+
+            <!-- Columna izquierda -->
+            <div class="left-column">
+                <!-- Imagen actual o por defecto -->
+                <img id="preview-img"
+                     src="{% if form.instance.foto %}{{ form.instance.foto.url }}{% else %}{% static 'images/default-user.png' %}{% endif %}"
+                     alt="Foto de perfil"
+                     class="profile-photo">
+
+                <!-- Input imagen -->
+                <div class="form-group file-input-wrapper">
+                    <label for="id_foto">Actualizar foto</label>
+                    <input type="file" name="foto" id="id_foto" accept="image/*" onchange="previewImage(event)">
+                    <button type="button" class="custom-file-button" onclick="document.getElementById('id_foto').click()">Seleccionar archivo</button>
+                </div>
+
+                <!-- Input CV -->
+                <div class="form-group file-input-wrapper">
+                    <label for="id_cv">Actualizar CV</label>
+                    <input type="file" name="cv" id="id_cv" accept=".pdf,.doc,.docx">
+                    {% if form.instance.cv %}
+                        <p><a href="{{ form.instance.cv.url }}" target="_blank">Ver CV actual</a></p>
+                    {% endif %}
+                    <button type="button" class="custom-file-button" onclick="document.getElementById('id_cv').click()">Seleccionar archivo</button>
+                </div>
+            </div>
+
+            <!-- Columna derecha -->
+            <div class="right-column">
+                <div class="form-group">
+                    {{ form.username.label_tag }}
+                    {{ form.username }}
+                </div>
+                <div class="form-group">
+                    {{ form.email.label_tag }}
+                    {{ form.email }}
+                </div>
+                <div class="form-group">
+                    {{ form.carrera.label_tag }}
+                    {{ form.carrera }}
+                </div>
+                <div class="form-group">
+                    {{ form.semestre.label_tag }}
+                    {{ form.semestre }}
+                </div>
+            </div>
+        </div>
+
+        <!-- Campo habilidades debajo -->
+        <div class="form-group habilidades-box">
+            {{ form.habilidades.label_tag }}
+            {{ form.habilidades }}
+        </div>
+
+        <!-- Botones -->
+        <div class="form-buttons">
+            <button type="submit">Guardar cambios</button>
+            <button type="button" onclick="window.location.href='{% url 'dashboards:dashboard_estudiante' %}'">Descartar cambios</button>
+        </div>
+    </form>
+</div>
+
+<!-- Vista previa JS -->
+<script>
+    function previewImage(event) {
+        const reader = new FileReader();
+        const image = document.getElementById('preview-img');
+
+        reader.onload = function () {
+            image.src = reader.result;
+        };
+
+        if (event.target.files.length > 0) {
+            reader.readAsDataURL(event.target.files[0]);
+        }
+    }
+</script>
+{% endblock %}

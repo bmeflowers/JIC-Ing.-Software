@@ -1,13 +1,91 @@
-{% extends "HeaderInicial.html" %}
-{% block title %}Editar Perfil Empresa{% endblock %}
+{% extends "HeaderDashboardEst.html" %}
+{% load static %}
+
+{% block title %}Editar Perfil{% endblock %}
+
+{% block extra_head %}
+<link rel="icon" href="{% static 'images/Nwe.png' %}" type="image/png">
+<link rel="stylesheet" href="{% static 'css/EDITPROF.css' %}">
+{% endblock %}
 
 {% block content %}
-<h2>Editar Perfil de Empresa</h2>
-<form method="post" enctype="multipart/form-data">
-    {% csrf_token %}
-    {{ form.as_p }}
+<div class="form-container">
+  <h2>Editar Perfil de Empresa</h2>
 
-    <button type="submit" class="btn-guardar">Guardar Cambios</button>
-    <a href="{% url 'dashboards:dashboard_empresa' %}" class="btn-cancelar">Cancelar</a>
-</form>
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="form-columns">
+
+      <div class="left-column">
+        {% if form.instance.logo %}
+            <img src="{{ form.instance.logo.url }}" alt="Logo de la empresa" class="profile-photo">
+        {% else %}
+            <img src="{% static 'images/USERNOT.jpeg' %}" alt="Sin logo" class="profile-photo">
+        {% endif %}
+
+        <div class="form-group file-input-wrapper" style="margin-top: 10px;">
+            {{ form.logo }}
+            <button type="button" class="custom-file-button" onclick="document.getElementById('{{ form.logo.id_for_label }}').click()">
+            Cambiar logo
+            </button>
+        </div>
+    </div>
+
+      <!-- Columna derecha -->
+      <div class="right-column">
+        <div class="form-group">
+          {{ form.nombre_empresa.label_tag }}
+          {{ form.nombre_empresa }}
+        </div>
+        <div class="form-group">
+          {{ form.rubro.label_tag }}
+          {{ form.rubro }}
+        </div>
+        <div class="form-group">
+          {{ form.sitio_web.label_tag }}
+          {{ form.sitio_web }}
+        </div>
+      </div>
+    </div>
+
+    <!-- Campo Descripción fuera de las columnas -->
+    <div class="form-group habilidades-box">
+      {{ form.descripcion.label_tag }}
+      {{ form.descripcion }}
+    </div>
+
+    <div class="form-buttons">
+      <button type="submit">Guardar Cambios</button>
+      <a href="{% url 'dashboards:dashboard_empresa' %}">
+        <button type="button">Cancelar</button>
+      </a>
+    </div>
+  </form>
+</div>
+
+<script>
+function previewLogo(event) {
+    const input = event.target;
+    const preview = document.querySelector('.profile-photo');
+
+    if (input.files && input.files[0]) {
+        const reader = new FileReader();
+
+        reader.onload = function(e) {
+            preview.src = e.target.result;
+        };
+
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+
+// Asigna el evento una vez cargue el DOM
+document.addEventListener("DOMContentLoaded", function () {
+    const logoInput = document.getElementById("id_logo");
+    if (logoInput) {
+        logoInput.addEventListener("change", previewLogo);
+    }
+});
+</script>
+
 {% endblock %}
