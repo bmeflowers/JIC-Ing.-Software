@@ -11,8 +11,12 @@ from django.views.generic import (
 from .models import Vacante
 from .forms import VacanteRegisterForm
 from users.models import EmpresaProfile, EstudianteProfile
+from django.core.paginator import Paginator
+from django.db.models import Case, When
+import random
 
-class EmpresaRequiredMixin(LoginRequiredMixin, UserPassesTestMixin):  # Corregido el nombre del mixin
+
+class EmpresaRequiredMixin(LoginRequiredMixin, UserPassesTestMixin):
     def test_func(self):
         return hasattr(self.request.user, 'empresaprofile')
 
@@ -67,17 +71,34 @@ class VacanteDeleteView(EmpresaRequiredMixin, DeleteView):
     def get_queryset(self):
         return Vacante.objects.filter(empresa=self.request.user.empresaprofile)
 
-class VacantePublicaListView(ListView):
-    model = Vacante
-    template_name = 'vacantes/vacante_publica_lista.html'
-    context_object_name = 'vacantes'
-    paginate_by = 10
+def vacante_publica_lista(request):
+    session_key = 'vacante_ids_randomizadas'
 
-    def get_queryset(self):
-        return Vacante.objects.filter(activo=True).order_by('-fecha_publicada')
+    if session_key not in request.session:
+        ids = list(Vacante.objects.filter(activo=True).values_list('id', flat=True))
+        random.shuffle(ids)
+        request.session[session_key] = ids
 
-# Cambiado el nombre para coincidir con urls.py
-class VacantePublicaDetailListView(DetailView):  # Antes era VacantePublicaDetailView
+    ids = request.session[session_key]
+
+    paginator = Paginator(ids, 6)
+    page_number = request.GET.get('page', 1)
+    page_obj = paginator.get_page(page_number)
+
+    page_ids = page_obj.object_list
+    preserved_order = Case(*[When(id=pk, then=pos) for pos, pk in enumerate(page_ids)])
+    vacantes = Vacante.objects.filter(id__in=page_ids).order_by(preserved_order)
+
+    total_vacantes_activas = Vacante.objects.filter(activo=True).count()
+
+    return render(request, 'vacantes/vacante_publica_lista.html', {
+        'vacantes': vacantes,
+        'page_obj': page_obj,
+        'is_paginated': page_obj.has_other_pages(),
+        'total_vacantes': total_vacantes_activas,
+    })
+
+class VacantePublicaDetailListView(DetailView):
     model = Vacante
     template_name = 'vacantes/vacante_publica_detalles.html'
     context_object_name = 'vacante'

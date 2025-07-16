@@ -39,7 +39,7 @@
 
     <!-- Resultados -->
     <div class="results-header">
-        <p class="results-count">{{ vacantes.count }} Ofertas de práctica profesional en Panamá</p>
+        <p class="results-count">{{ total_vacantes }} Ofertas de práctica profesional disponibles</p>
         <div class="sort-options">
             <button class="sort-button active">Destacados</button>
             <button class="sort-button">Nuevos</button>
@@ -49,7 +49,7 @@
     <!-- Aquí agregamos el contenedor grid -->
     <div class="vacancies-grid">
         {% for vacante in vacantes %}
-        <div class="vacancy-card">
+        <a href="{% url 'vacantes:vacante_publica_detalles' vacante.pk %}" class="vacancy-card">
             <div class="card-header">
                 <div class="company-logo">
                     {% if vacante.empresa.logo %}
@@ -58,7 +58,7 @@
                     <i class="fas fa-building fa-2x text-light"></i>
                     {% endif %}
                 </div>
-                <div>
+                <div class="card-header-text">
                     <h3 class="card-title">{{ vacante.titulo }}</h3>
                     <p class="card-subtitle">{{ vacante.empresa.nombre_empresa }}</p>
                 </div>
@@ -80,11 +80,8 @@
                     {% endif %}
                 </div>
                 <p class="vacancy-description">{{ vacante.descripcion|truncatechars:120 }}</p>
-                <a href="{% url 'vacantes:vacante_publica_detalles' vacante.pk %}" class="details-button">
-                    Ver Detalles
-                </a>
             </div>
-        </div>
+        </a>
         {% endfor %}
     </div>
 

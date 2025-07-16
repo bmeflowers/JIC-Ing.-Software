@@ -10,18 +10,21 @@
 {% endblock %}
 
 {% block content %}
-<div class="container mt-4">
-    <div class="header-left">
-        <a href="{% url 'dashboards:dashboard_estudiante' %}" class="back-link">
-            <i class="fas fa-arrow-left"></i> Atrás
-        </a>
-        <h2 class="mb-4">{{ titulo }}</h2>
+<div class="vacantes-container">
+
+    <div class="vacantes-header">
+        <div class="header-container">
+            <a href="{% url 'dashboards:dashboard_estudiante' %}" class="back-link">
+                <i class="fas fa-arrow-left"></i> Atrás
+            </a>
+            <h2 class="vacantes-title">Mis Postulaciones</h2>
+        </div>
     </div>
 
     {% if postulaciones %}
-    <div class="table-responsive">
-        <table class="table table-striped">
-            <thead class="thead-dark">
+    <div class="table">
+        <table>
+            <thead>
                 <tr>
                     <th>Vacante</th>
                     <th>Empresa</th>
@@ -37,17 +40,17 @@
                     <td>{{ post.vacante.empresa.nombre_empresa }}</td>
                     <td>
                         <span class="badge 
-                            {% if post.status == 'Aceptada' %}bg-success
-                            {% elif post.status == 'Rechazada' %}bg-danger
+                            {% if post.status == 'Aceptada' %}estado-activo
+                            {% elif post.status == 'Rechazada' %}estado-inactivo
                             {% elif post.status == 'Entrevista' %}bg-info text-white
                             {% else %}bg-warning text-dark{% endif %}">
                             {{ post.status }}
                         </span>
                     </td>
                     <td>{{ post.fecha_postulacion|date:"d/m/Y H:i" }}</td>
-                    <td>
+                    <td class="acciones-container">
                         {% if post.status == 'Pendiente' %}
-                        <a href="#" class="btn btn-sm btn-danger">Cancelar</a>
+                        <a href="#" class="btn-accion eliminar">Cancelar</a>
                         {% endif %}
                     </td>
                 </tr>
@@ -56,9 +59,11 @@
         </table>
     </div>
     {% else %}
-    <div class="alert alert-info">
-        No tienes postulaciones registradas.
+    <div class="estado-vacio">
+        <div class="icono-vacio"><i class="fas fa-briefcase"></i></div>
+        <div class="mensaje-vacio">No tienes postulaciones registradas.</div>
     </div>
     {% endif %}
+
 </div>
 {% endblock %}

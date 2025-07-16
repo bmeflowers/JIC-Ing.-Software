@@ -13,19 +13,22 @@
     <!-- Panel Lateral Izquierdo -->
     <div class="profile-sidebar">
         <div class="profile-card">
-            <div class="logo-circle">
-                {% if user.empresaprofile.logo %}
-                    <img src="{{ user.empresaprofile.logo.url }}" alt="Logo Empresa" class="company-logo">
-                {% else %}
-                    <div class="dual-leaf-logo">
-                        <i class="fas fa-leaf primary-leaf"></i>
-                        <i class="fas fa-leaf secondary-leaf"></i>
-                    </div>
-                {% endif %}
+            <div class="profile-card-header" style="background-image: url('{% static "images/BackEmp.png" %}');">
+                <div class="logo-circle">
+                    {% if user.empresaprofile.logo %}
+                        <img src="{{ user.empresaprofile.logo.url }}" alt="Logo Empresa" class="company-logo">
+                    {% else %}
+                        <div class="dual-leaf-logo">
+                            <i class="fas fa-leaf primary-leaf"></i>
+                            <i class="fas fa-leaf secondary-leaf"></i>
+                        </div>
+                    {% endif %}
+                </div>
             </div>
+
             <h1 class="welcome-title">Bienvenido <span class="dynamic-company-name">{{ user.username }}</span></h1>
             <a href="{% url 'editar_perfil_empresa' %}" class="edit-profile-button">
-                <i class="fas fa-user-edit"></i> Editar Perfil
+                Editar Perfil
             </a>
         </div>
     </div>
@@ -35,7 +38,7 @@
         <div class="company-description-box">
             <h2 class="section-title">Descripción:</h2>
             <div class="description-text">
-                {{ user.descripcion}}
+                {{ user.empresaprofile.descripcion }}
             </div>
         </div>
 
@@ -47,14 +50,14 @@
             <div class="action-cards-container">
                 <a href="{% url 'vacantes:vacante_empresa_lista' %}" class="action-card publications-card">
                     <div class="card-icon">
-                        <i class="fas fa-file-signature"></i>
+                        <i class="fa-solid fa-pen-to-square"></i>
                     </div>
                     <div class="card-label">Publicaciones hechas</div>
                 </a>
                 
                 <a href="{% url 'postulaciones:postulaciones_vacantes_empresa_lista' %}" class="action-card applications-card">
                     <div class="card-icon">
-                        <i class="fas fa-user-tie"></i>
+                        <i class="fa-solid fa-file-lines"></i>
                     </div>
                     <div class="card-label">Postulaciones</div>
                 </a>

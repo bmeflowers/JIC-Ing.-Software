@@ -5,8 +5,8 @@ from .views import (
     VacanteCreateView,
     VacanteUpdateView,
     VacanteDeleteView,
-    VacantePublicaListView,
-    VacantePublicaDetailListView  # Nombre actualizado
+    vacante_publica_lista,
+    VacantePublicaDetailListView
 )
 
 app_name = 'vacantes'
@@ -17,6 +17,6 @@ urlpatterns = [
     path('empresa/<int:pk>/', VacanteEmpresaDetailView.as_view(), name='vacante_empresa_detalles'),
     path('empresa/<int:pk>/editar/', VacanteUpdateView.as_view(), name='actualizar_vacante'),
     path('empresa/<int:pk>/eliminar/', VacanteDeleteView.as_view(), name='eliminar_vacante'),
-    path('', VacantePublicaListView.as_view(), name='vacante_publica_lista'),
-    path('<int:pk>/', VacantePublicaDetailListView.as_view(), name='vacante_publica_detalles')
+    path('', vacante_publica_lista, name='vacante_publica_lista'),
+    path('<int:pk>/', VacantePublicaDetailListView.as_view(), name='vacante_publica_detalles'),
 ]

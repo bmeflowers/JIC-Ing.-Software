@@ -10,12 +10,14 @@
 {% block content %}
 <div class="container">
     <div class="vacante-detalle-container">
+        
         <div class="back-button-container">
             <a href="{% url 'vacantes:vacante_publica_lista' %}" class="back-button">
                 <i class="fas fa-arrow-left"></i> Ver otras ofertas de vacantes
             </a>
         </div>
-        
+
+        <!-- Cabecera con título y botón a la derecha -->
         <div class="vacante-header">
             <h1 class="vacante-title">{{ vacante.titulo }}</h1>
             <div class="header-actions">
@@ -36,7 +38,8 @@
                 {% endif %}
             </div>
         </div>
-        
+
+        <!-- Tarjeta de la vacante -->
         <div class="vacante-card">
             <div class="card-header">
                 <h2 class="empresa-name">Publicado por: {{ vacante.empresa.nombre_empresa }}</h2>
@@ -49,14 +52,14 @@
                         {{ vacante.descripcion|linebreaksbr }}
                     </div>
                 </div>
-                
+
                 <div class="section">
                     <h3 class="section-title">Requisitos</h3>
                     <div class="section-content">
                         {{ vacante.requerimientos|linebreaksbr }}
                     </div>
                 </div>
-                
+
                 <div class="details-grid">
                     <div class="detail-item">
                         <span class="detail-label">Ubicación:</span>

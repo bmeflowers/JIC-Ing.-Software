@@ -35,7 +35,6 @@ header {
 
 /* Contenedores del header */
 header .header-left,
-header .header-center,
 header .header-right {
     display: flex;
     align-items: center; /* Para centrar verticalmente sus contenidos */
@@ -46,6 +45,7 @@ header .header-logo {
     display: block; /* Asegura que la imagen se comporte como un bloque */
     height: 40px;
     width: auto;
+    margin-right: 100px;
     object-fit: contain;
 }
 

@@ -1,128 +1,109 @@
-/* Estilos generales */
-.vacante-detalle-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 10px 60px;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    color: #333;
+:root {
+    --primary-color: #7E57C2;
+    --primary-dark: #5E35B1;
+    --white: #FFFFFF;
+    --secondary-color: #4CAF50;
+    --background-light: #F5F5F5;
+    --text-dark: #333333;
+    --text-light: #757575;
+    --border-color: #E0E0E0;
 }
 
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: var(--text-dark);
+    background-color: var(--white);
+    margin: 0;
+}
+
+/* Contenedor general */
 .container {
     width: 100%;
-    padding: 30px 1vw;
+    padding: 30px 4vw;
     box-sizing: border-box;
 }
 
-
-.header-content {
+/* Contenedor del header */
+.header-container {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-bottom: 30px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid var(--border-color);
+    gap: 15px;
 }
 
-/* Encabezado */
+.header-container > div:empty {
+    display: none;
+}
+
+/* Botón atrás */
+.back-button {
+    color: #FF65C3;
+    text-decoration: none;
+    font-weight: 500;
+    padding: 8px 12px;
+    border-radius: 6px;
+    display: inline-block;
+}
+
 .vacante-header {
+    margin-top: 15px;
     display: flex;
-    flex-wrap: wrap;
-    align-items: center;
     justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
     margin-bottom: 30px;
     gap: 20px;
 }
 
-/* Encabezado */
-.back-button-container {
-    margin-bottom: 5px; /* Reducido de 15px a 5px */
-}
-
-.back-button {
-    font-size: 16px;
-    color: #FF65C3;
-    text-decoration: none;
-    font-weight: 500;
-}
-
-.back-button i {
-    margin-right: 6px;
-}
-
 .vacante-title {
     font-size: 28px;
-    font-weight: 700;
-    color: #352f44;
+    font-weight: 600;
     margin: 0;
+    color: var(--text-dark);
     flex-grow: 1;
-    text-align: left;
 }
 
-.vacante-actions {
+/* Botón aplicar (acciones) */
+.header-actions {
     display: flex;
+    flex-wrap: wrap;
     gap: 15px;
 }
 
+/* Botón principal */
 .btn-aplicar {
     background-color: #5ec7a8;
-    color: #fff;
+    color: white;
     padding: 10px 20px;
-    border: none;
     border-radius: 8px;
     font-size: 16px;
     text-decoration: none;
     font-weight: 600;
-    transition: background-color 0.3s;
-    display: inline-block;
-}
-
-.btn-aplicar:hover {
-    background-color: #3d8b40;
-}
-
-.btn-edit, .btn-delete {
+    transition: background-color 0.3s ease;
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    padding: 10px 20px;
-    border-radius: 6px;
-    text-decoration: none;
-    font-weight: 500;
-    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
 }
 
-.btn-edit {
-    background-color: #e6e0f2;
-    color: #5a4fcf;
-}
-
-.btn-delete {
-    border: none !important;
-    outline: none !important;
-    background-color: #0f33d4;
-    color: #ffffff;
-}
-
-.btn-edit:hover {
-    background-color: #d8d0f0;
-    box-shadow: 0 2px 6px rgba(90, 79, 207, 0.1);
-}
-
-.btn-delete:hover {
-    background-color: #a79ebe;
-    box-shadow: 0 2px 6px rgba(194, 24, 91, 0.1);
+.btn-aplicar:hover {
+    background-color: #4ea389;
 }
 
 /* Tarjeta principal */
 .vacante-card {
-    background-color: #fff;
+    background-color: var(--white);
     border-radius: 12px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.20);
     overflow: hidden;
 }
 
+/* Encabezado de tarjeta */
 .card-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
     padding: 20px;
     background-color: #f9f7ff;
     border-bottom: 1px solid #e6e0f2;
@@ -131,32 +112,16 @@
 .empresa-name {
     font-size: 20px;
     font-weight: 600;
-    color: #5a4fcf;
+    color: var(--text-dark);
     margin: 0;
 }
 
-.estado-badge {
-    padding: 6px 12px;
-    border-radius: 20px;
-    font-size: 14px;
-    font-weight: 500;
-}
-
-.estado-badge.activo {
-    background-color: #e8f5e9;
-    color: #2e7d32;
-}
-
-.estado-badge.inactivo {
-    background-color: #f5f5f5;
-    color: #757575;
-}
-
+/* Cuerpo de la tarjeta */
 .card-body {
     padding: 25px;
 }
 
-/* Secciones */
+/* Secciones internas */
 .section {
     margin-bottom: 30px;
 }
@@ -164,7 +129,7 @@
 .section-title {
     font-size: 18px;
     font-weight: 600;
-    color: #5a4fcf;
+    color: var(--text-dark);
     margin-bottom: 15px;
     padding-bottom: 8px;
     border-bottom: 2px solid #f0ebfa;
@@ -197,150 +162,11 @@
     color: #555;
 }
 
-/* Modal de confirmación */
-.modal {
-    display: none;
-    position: fixed;
-    z-index: 1000;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-}
-
-.modal-content {
-    background-color: white;
-    margin: 15% auto;
-    padding: 25px;
-    border-radius: 10px;
-    width: 90%;
-    max-width: 500px;
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
-}
-
-.modal h3 {
-    margin-top: 0;
-    color: #352f44;
-}
-
-.modal p {
-    margin-bottom: 25px;
-    color: #555;
-}
-
-.modal-actions {
-    display: flex;
-    justify-content: flex-end;
-    gap: 15px;
-}
-
-.modal-btn {
-    padding: 10px 20px;
-    border-radius: 6px;
-    border: none;
-    cursor: pointer;
-    font-weight: 500;
-    transition: all 0.3s;
-}
-
-.cancel-btn {
-    background-color: #e6e0f2;
-    color: #5a4fcf;
-}
-
-.confirm-btn {
-    background-color: #c2185b;
-    color: white;
-    text-decoration: none;
-    text-align: center;
-}
-
-.modal-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-}
-
-/* Estilos específicos para la página de detalle de postulación */
-.status-form {
-    max-width: 500px;
-    margin-top: 20px;
-}
-
-.form-group {
-    margin-bottom: 20px;
-}
-
-.form-group select {
-    width: 100%;
-    padding: 10px 15px;
-    border: 1px solid #e6e0f2;
-    border-radius: 8px;
-    background-color: #f9f7ff;
-    font-size: 16px;
-    color: #5a4fcf;
-    transition: all 0.3s ease;
-}
-
-.form-group select:focus {
-    outline: none;
-    border-color: #5a4fcf;
-    box-shadow: 0 0 0 2px rgba(90, 79, 207, 0.2);
-}
-
+/* Texto aclaratorio */
 .text-muted {
-    color: #999;
+    color: var(--text-light);
     font-style: italic;
 }
-
-/* Mejoras para los badges de estado */
-.estado-badge {
-    padding: 8px 16px;
-    font-size: 14px;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-}
-
-.estado-badge.activo {
-    background-color: #e8f5e9;
-    color: #2e7d32;
-}
-
-.estado-badge.inactivo {
-    background-color: #fff3e0;
-    color: #ef6c00;
-}
-
-.section-content.text-center .btn-aplicar {
-    margin: 0 auto;
-    display: inline-flex;
-    justify-content: center;
-}
-
-/* Ajustes para el botón de descarga */
-.btn-aplicar {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    padding: 10px 20px;
-    border-radius: 8px;
-    text-decoration: none;
-    font-weight: 500;
-    transition: all 0.3s ease;
-    border: none;
-    cursor: pointer;
-}
-
-/* Formulario centrado */
-.text-center {
-    text-align: center;
-}
-
-.btn-aplicar i {
-    font-size: 14px;
-}
-
 
 /* Responsive */
 @media (max-width: 768px) {
@@ -348,35 +174,22 @@
         flex-direction: column;
         align-items: flex-start;
     }
-    
+
     .vacante-title {
-        text-align: left;
         font-size: 24px;
     }
-    
-    .vacante-actions {
+
+    .header-actions {
         width: 100%;
-        justify-content: space-between;
+        justify-content: flex-start;
     }
-    
-    .btn-edit, .btn-delete {
-        flex-grow: 1;
+
+    .btn-aplicar {
+        width: 100%;
         justify-content: center;
     }
-    
+
     .details-grid {
         grid-template-columns: 1fr;
-    }
-    
-    .modal-content {
-        margin: 30% auto;
-    }
-    
-    .modal-actions {
-        flex-direction: column;
-    }
-    
-    .modal-btn {
-        width: 100%;
     }
 }

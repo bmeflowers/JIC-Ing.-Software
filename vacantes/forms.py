@@ -2,6 +2,15 @@ from django import forms
 from .models import Vacante
 
 class VacanteRegisterForm(forms.ModelForm):
+    fecha_limite = forms.DateField(
+        input_formats=['%d/%m/%Y'],  # Este es el formato que Flatpickr usa
+        widget=forms.DateInput(attrs={
+            'type': 'text',
+            'class': 'form-control datepicker',
+            'placeholder': 'DD/MM/AAAA'
+        })
+    )
+
     class Meta:
         model = Vacante
         fields = [

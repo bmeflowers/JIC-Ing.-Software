@@ -14,51 +14,66 @@
     <!-- Panel Lateral -->
     <div class="profile-sidebar">
         <div class="profile-card">
-            <div class="logo-circle">
-                {% if user.estudianteprofile.foto %}
-                    <img src="{{ user.estudianteprofile.foto.url }}" alt="Foto de perfil" class="profile-img">
-                {% else %}
-                    <div class="dual-leaf-logo">
-                        <i class="fas fa-user-graduate primary-icon"></i>
-                    </div>
-                {% endif %}
+            <div class="profile-card-header" style="background-image: url('{% static "images/BackUser.png" %}');">
+                <div class="logo-circle">
+                    {% if user.estudianteprofile.foto %}
+                        <img src="{{ user.estudianteprofile.foto.url }}" alt="Foto de perfil" class="profile-img">
+                    {% else %}
+                        <div class="dual-leaf-logo">
+                            <i class="fas fa-user-graduate primary-leaf"></i>
+                        </div>
+                    {% endif %}
+                </div>
             </div>
-            <h2 class="welcome-title">¡Hola <span class="dynamic-company-name">{{ user.username }}!</span></h2>
-            <p class="description-text">Explora oportunidades y gestiona tus postulaciones.</p>
+
+            <h1 class="welcome-title">Hola <span class="dynamic-company-name">{{ user.username }}</span></h1>
             <a href="{% url 'editar_perfil_estudiante' %}" class="edit-profile-button">
-                <i class="fas fa-user-edit"></i> Editar perfil
+                Editar perfil
             </a>
         </div>
     </div>
 
     <!-- Contenido Principal -->
     <div class="main-content-area">
-        <div class="action-cards-container">
-            <a href="{% url 'vacantes:vacante_publica_lista' %}" class="action-card publications-card">
-                <div class="card-icon">
-                    <i class="fas fa-briefcase"></i>
-                </div>
-                <div class="card-label">Vacantes disponibles</div>
-            </a>
-            
-            <a href="{% url 'postulaciones:ver_postulaciones' %}" class="action-card applications-card">
-                <div class="card-icon">
-                    <i class="fas fa-file-alt"></i>
-                </div>
-                <div class="card-label">Mis postulaciones</div>
-            </a>
+        <div class="company-description-box">
+            <h2 class="section-title">
+                <i class="fas fa-bullhorn"></i> Próximas oportunidades
+            </h2>
+
+            <div class="description-text">
+                ¡No pierdas la oportunidad de encontrar la práctica perfecta para ti!
+            </div>
+
+            {% if vacantes %}
+            <div class="vacantes-cards-container">
+                {% for vacante in vacantes %}
+                <a href="{% url 'vacantes:vacante_publica_detalles' vacante.pk %}" class="vacante-preview-card">
+                    <h4 class="vacante-title">{{ vacante.titulo }}</h4>
+                    <p class="vacante-empresa">{{ vacante.empresa.nombre_empresa }}</p>
+                </a>
+                {% endfor %}
+            </div>
+            {% else %}
+            <p class="no-vacantes-msg">No hay vacantes disponibles en este momento.</p>
+            {% endif %}
         </div>
 
         <div class="section-divider"></div>
 
-        <div class="company-description-box">
-            <h3 class="section-title">
-                <i class="fas fa-bullhorn"></i> Próximas oportunidades
-            </h3>
-            <p class="description-text">
-                Aquí podrás ver las vacantes disponibles y el estado de tus postulaciones.
-                ¡No pierdas la oportunidad de encontrar la práctica perfecta para ti!
-            </p>
+        <div class="management-actions-box">
+            <h2 class="section-title">Encuentra nuevas vacantes y revisa tus postulaciones</h2>
+            
+            <div class="action-cards-container">
+                <a href="{% url 'vacantes:vacante_publica_lista' %}" class="action-card publications-card">
+                    <div class="card-icon"><i class="fas fa-briefcase"></i></div>
+                    <div class="card-label">Vacantes disponibles</div>
+                </a>
+
+                <a href="{% url 'postulaciones:ver_postulaciones' %}" class="action-card applications-card">
+                    <div class="card-icon"><i class="fas fa-file-alt"></i></div>
+                    <div class="card-label">Mis postulaciones</div>
+                </a>
+            </div>
         </div>
     </div>
 </div>

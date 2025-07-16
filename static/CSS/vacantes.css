@@ -1,7 +1,14 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #333333;
+    background-color: #FFFFFF;
+    margin: 0;
+}
+
 .vacantes-container {
     width: 100%;
-    padding: 40px 60px;
-    background-color: #f9f9f9;
+    padding: 30px 4vw;
+    box-sizing: border-box;
 }
 
 .vacantes-header {
@@ -12,35 +19,34 @@
     margin-bottom: 40px;
 }
 
-.header-left {
+.header-container {
     display: flex;
-    flex-direction: column;
-    gap: 10px;
+    flex-direction: column; 
+    align-items: flex-start; 
+    margin-bottom: 30px;
+    padding-bottom: 15px;
+    gap: 15px; 
+}
+
+.header-container > div:empty {
+    display: none;
 }
 
 .back-link {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 16px;
     color: #FF65C3;
     text-decoration: none;
     font-weight: 500;
-    padding: 8px 16px;
-    border-radius: 30px;
-    transition: all 0.3s ease;
-    margin-bottom: 15px;
-}
-
-.back-link:hover i {
-    transform: translateX(-4px);
+    padding: 8px 12px;
+    border-radius: 6px;
 }
 
 .vacantes-title {
-    font-size: 24px;
-    font-weight: 700;
-    color: #374151;
+    font-size: 28px;
+    font-weight: 600;
     margin: 0;
+    order: 2; 
+    width: 100%; 
+    color: #333333;
 }
 
 .crear-vacante-button {
