@@ -2,28 +2,65 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{% block title %}Train2Work{% endblock %}</title>
-    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
-
-    {% block extra_head %}
-    {% endblock %}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}" />
+    {% block extra_head %}{% endblock %}
 </head>
 <body>
     <header>
         <div class="header-left">
-            <img src="{% static 'images/t2w.png' %}" alt="Train2Work Logo" class="header-logo">
+            <img src="{% static 'images/t2w.png' %}" alt="Train2Work Logo" class="header-logo" />
         </div>
         <div class="header-center">
             <nav>
-                <a href="{% url 'dashboards:dashboard_estudiante'%}">Home</a>
-                <a href="{% url 'vacantes:vacante_publica_lista' %}" class="btn btn-info">Vacantes</a>
-                <a href="{%url 'home' %}">Salir</a>
+                <a href="{% url 'dashboards:dashboard_estudiante' %}"
+                   class="{% if request.resolver_match.url_name == 'dashboard_estudiante' %}active-nav{% endif %}">
+                   Home
+                </a>
+
+                <a href="{% url 'vacantes:vacante_publica_lista' %}"
+                   class="{% if '/vacantes/' in request.path %}active-nav{% endif %}">
+                   Vacantes
+                </a>
+
+                <a href="{% url 'postulaciones:ver_postulaciones' %}"
+                   class="{% if '/postulaciones/' in request.path %}active-nav{% endif %}">
+                   Mis postulaciones
+                </a>
+
+                <a href="{% url 'home' %}"
+                   class="{% if request.path == '/' %}active-nav{% endif %}">
+                   Salir
+                </a>
             </nav>
         </div>
         <div class="header-right">
-            <img src="{% static 'icons/bell.svg' %}" alt="Bell Icon" class="right-icon">
+            <div class="dropdown-notificaciones">
+                <button id="toggle-bell" class="right-icon-button" aria-label="Ver notificaciones">
+                    <img src="{% static 'icons/bell.svg' %}" alt="Bell Icon" class="right-icon" />
+                    {% if notificaciones_bell %}
+                        <span class="notificacion-count">{{ notificaciones_bell|length }}</span>
+                    {% endif %}
+                </button>
+
+                <div id="dropdown-menu" class="notificacion-dropdown hidden" role="menu" aria-hidden="true">
+                    <ul>
+                        {% if notificaciones_bell %}
+                            {% for notif in notificaciones_bell %}
+                                <li>
+                                    <a href="{% url 'postulaciones:ver_postulaciones' %}">
+                                        {{ notif.mensaje }}
+                                    </a>
+                                </li>
+                            {% endfor %}
+                        {% else %}
+                            <li>No tienes notificaciones</li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </div>
         </div>
     </header>
 
@@ -33,7 +70,7 @@
 
     <footer>
         <div class="footer-content">
-            <img src="{% static 'images/t2w.png' %}" alt="Train2Work Logo" class="footer-logo">
+            <img src="{% static 'images/t2w.png' %}" alt="Train2Work Logo" class="footer-logo" />
             <nav class="footer-nav">
                 <a href="#">About Us</a>
                 <a href="#">Términos y Condiciones</a>
@@ -42,5 +79,69 @@
         </div>
         <p>&copy; Train2Work 2025</p>
     </footer>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const bellBtn = document.getElementById('toggle-bell');
+            const dropdown = document.getElementById('dropdown-menu');
+
+            bellBtn.addEventListener('click', function (e) {
+                e.stopPropagation();
+                dropdown.classList.toggle('hidden');
+
+                // Actualizar aria-hidden para accesibilidad
+                if (dropdown.classList.contains('hidden')) {
+                    dropdown.setAttribute('aria-hidden', 'true');
+                } else {
+                    dropdown.setAttribute('aria-hidden', 'false');
+
+                    // Aquí hacemos la petición para marcar notificaciones leídas
+                    fetch("{% url 'postulaciones:marcar_notificaciones_leidas' %}", {
+                        method: 'POST',
+                        headers: {
+                            'X-CSRFToken': getCookie('csrftoken'),
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({})
+                    }).then(response => {
+                        if (response.ok) {
+                            // Opcional: actualizar contador visual a cero o eliminarlo
+                            const countSpan = document.querySelector('.notificacion-count');
+                            if (countSpan) countSpan.remove();
+                        }
+                    });
+                }
+            });
+
+            // Función para obtener la cookie CSRF
+            function getCookie(name) {
+                let cookieValue = null;
+                if (document.cookie && document.cookie !== '') {
+                    const cookies = document.cookie.split(';');
+                    for (let i = 0; i < cookies.length; i++) {
+                        const cookie = cookies[i].trim();
+                        // Does this cookie string begin with the name we want?
+                        if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                            cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                            break;
+                        }
+                    }
+                }
+                return cookieValue;
+            }
+
+            document.addEventListener('click', function () {
+                if (!dropdown.classList.contains('hidden')) {
+                    dropdown.classList.add('hidden');
+                    dropdown.setAttribute('aria-hidden', 'true');
+                }
+            });
+
+            dropdown.addEventListener('click', function (e) {
+                e.stopPropagation();
+            });
+        });
+
+    </script>
 </body>
 </html>

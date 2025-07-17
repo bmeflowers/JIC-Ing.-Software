@@ -22,42 +22,32 @@
     </div>
 
     {% if postulaciones %}
-    <div class="table">
-        <table>
-            <thead>
-                <tr>
-                    <th>Vacante</th>
-                    <th>Empresa</th>
-                    <th>Estado</th>
-                    <th>Fecha</th>
-                    <th>Acciones</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for post in postulaciones %}
-                <tr>
-                    <td>{{ post.vacante.titulo }}</td>
-                    <td>{{ post.vacante.empresa.nombre_empresa }}</td>
-                    <td>
-                        <span class="badge 
-                            {% if post.status == 'Aceptada' %}estado-activo
-                            {% elif post.status == 'Rechazada' %}estado-inactivo
-                            {% elif post.status == 'Entrevista' %}bg-info text-white
-                            {% else %}bg-warning text-dark{% endif %}">
-                            {{ post.status }}
-                        </span>
-                    </td>
-                    <td>{{ post.fecha_postulacion|date:"d/m/Y H:i" }}</td>
-                    <td class="acciones-container">
-                        {% if post.status == 'Pendiente' %}
-                        <a href="#" class="btn-accion eliminar">Cancelar</a>
-                        {% endif %}
-                    </td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    </div>
+        <!-- Encabezado tipo tabla -->
+        <div class="vacantes-encabezado">
+            <div>Vacante</div>
+            <div>Empresa</div>
+            <div>Estado</div>
+            <div>Fecha</div>
+        </div>
+
+        <!-- Cards -->
+        {% for post in postulaciones %}
+        <div class="vacante-card">
+            <div class="vacante-title">{{ post.vacante.titulo }}</div>
+            <div>{{ post.vacante.empresa.nombre_empresa }}</div>
+            <div class="col-estado">
+                <span class="badge 
+                    {% if post.status == 'Aceptada' %}estado-activo
+                    {% elif post.status == 'Rechazada' %}estado-inactivo
+                    {% elif post.status == 'Entrevista' %}bg-info text-white
+                    {% else %}bg-warning text-dark{% endif %}">
+                    {{ post.status }}
+                </span>
+            </div>
+            <div class="col-fecha">{{ post.fecha_postulacion|date:"d/m/Y H:i" }}</div>
+        </div>
+        {% endfor %}
+
     {% else %}
     <div class="estado-vacio">
         <div class="icono-vacio"><i class="fas fa-briefcase"></i></div>

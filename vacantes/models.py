@@ -10,8 +10,7 @@ class Vacante(models.Model):
     duracion = models.CharField(
         max_length=50,
         verbose_name="Duración del puesto",
-        help_text="Ej: 3-6 meses",
-        default="Indefinido"
+        help_text="Ej: 3-6 meses"
     )
     cantidad_vacantes = models.PositiveIntegerField(
         verbose_name="Cantidad de vacantes",

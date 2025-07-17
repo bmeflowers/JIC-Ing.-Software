@@ -6,7 +6,7 @@ body {
     font-family: 'Hind Vadodara', sans-serif;
     margin: 0;
     padding: 0;
-    box-sizing: border-box; /* Fundamental para el control del box model */
+    box-sizing: border-box;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
@@ -30,19 +30,19 @@ header {
     top: 0;
     z-index: 1000;
     width: 100%;
-    box-sizing: border-box; /* Asegurar que padding no añada ancho extra */
+    box-sizing: border-box;
 }
 
 /* Contenedores del header */
 header .header-left,
 header .header-right {
     display: flex;
-    align-items: center; /* Para centrar verticalmente sus contenidos */
+    align-items: center;
 }
 
 /* Logo de Train2Work en el Header */
-header .header-logo {
-    display: block; /* Asegura que la imagen se comporte como un bloque */
+header .header-center, .header-logo {
+    display: block;
     height: 40px;
     width: auto;
     margin-right: 100px;
@@ -58,14 +58,10 @@ header nav a {
     white-space: nowrap;
 }
 
-header nav a:hover {
-    color: #6a0dad;
-}
-
 /* Estilo para el enlace activo */
 header nav a.active-nav {
-    color: #6a0dad; /* Color del link activo, por ejemplo, el mismo que el hover */
-    font-weight: 700; /* Lo hace más negrita */
+    color: #c919a3;
+    font-weight: 700;
     /* O si quieres atenuarlo, podrías usar: */
     /* opacity: 0.6; */
     /* color: #999999; */
@@ -92,35 +88,33 @@ header nav a.active-nav {
 /* --- Estilos Específicos para el Ícono de Campana (Header Right) --- */
 .header-right {
     /* Fondo y forma circular */
-    background-color: #E6FFF5; /* Verde claro */
-    border-radius: 50%;       /* Hace el fondo circular */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05); /* Sutil sombra */
+    background-color: #E6FFF5;
+    border-radius: 50%;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 
     /* Dimensiones fijas para asegurar el círculo */
-    width: 40px;  /* Ancho del círculo */
-    height: 40px; /* Alto del círculo (igual que el ancho para ser perfecto) */
+    width: 40px;
+    height: 40px;
 
     /* Centrado del ícono dentro del círculo */
     display: flex;
     justify-content: center;
     align-items: center;
-    /* No se necesita padding si width/height y flexbox centran el icono correctamente */
 }
 
 .header-right .right-icon {
-    /* Tamaño del ícono de la campana dentro del círculo */
-    height: 20px; /* Ajusta según el tamaño de tu SVG */
-    width: 20px;  /* Ajusta según el tamaño de tu SVG */
+    height: 20px;
+    width: 20px;
     object-fit: contain;
 }
 
 
 /* --- MAIN CONTENT --- */
 main {
-    flex: 1; /* Permite que el contenido principal ocupe el espacio restante */
+    flex: 1;
     padding: 0;
     max-width: 100%;
-    margin-top: 0px; /* Ya el header es sticky, no necesita margen superior */
+    margin-top: 0px;
     background-color: transparent;
     border-radius: 0;
     box-shadow: none;
@@ -138,12 +132,12 @@ footer {
     text-align: center;
     font-size: 0.9em;
     display: flex;
-    flex-direction: row; /* En pantallas grandes, horizontal */
+    flex-direction: row;
     align-items: center;
     justify-content: space-between;
     width: 100%;
     box-sizing: border-box;
-    flex-wrap: wrap; /* Permite que los elementos se envuelvan en pantallas pequeñas */
+    flex-wrap: wrap;
 }
 
 /* Contenido del Footer (logo y navegación) */
@@ -152,7 +146,7 @@ footer .footer-content {
     align-items: center;
     width: 100%;
     max-width: 1200px;
-    margin: 0 auto; /* Centrar el contenido del footer */
+    margin: 0 auto;
     justify-content: space-between;
 }
 
@@ -163,17 +157,16 @@ footer .footer-logo {
     background-color: #FFFFFF;
     padding: 10px;
     border-radius: 10px;
-    /* Ajusta este margen según el diseño, 250px parece mucho */
-    margin-left: 250px; /* Considera si este margen es realmente deseado */
+    margin-left: 250px;
 }
 
 /* Navegación del Footer */
 footer .footer-nav {
     display: flex;
     justify-content: center;
-    gap: 30px; /* Espacio entre los enlaces */
+    gap: 30px;
     flex-wrap: wrap;
-    flex-grow: 1; /* Permite que la navegación ocupe espacio extra si el logo no está presente */
+    flex-grow: 1;
 }
 
 footer .footer-nav a {
@@ -185,13 +178,13 @@ footer .footer-nav a {
 }
 
 footer .footer-nav a:hover {
-    color: #FF69B4; /* Color de hover para los enlaces del footer */
+    color: #FF69B4;
 }
 
 /* Copyright del Footer */
 footer p {
     color: rgba(255, 255, 255, 0.7);
-    width: 100%; /* Asegura que el párrafo ocupe todo el ancho */
+    width: 100%;
     text-align: center;
     margin-top: 20px;
 }
@@ -201,25 +194,25 @@ footer p {
 /* Tabletas y pantallas medianas */
 @media (max-width: 768px) {
     header {
-        flex-direction: column; /* Apila los elementos del header */
+        flex-direction: column;
         padding: 10px 20px;
     }
 
     header .header-left,
-    header .header-center, /* Aseguramos que el centro también se comporte bien */
+    header .header-center,
     header .header-right {
-        margin-top: 10px; /* Espacio entre los elementos apilados */
+        margin-top: 10px;
     }
 
     header nav {
-        margin-top: 10px; /* Espacio entre la navegación y otros elementos */
+        margin-top: 10px;
         display: flex;
-        flex-wrap: wrap; /* Permite que los enlaces de navegación se envuelvan */
-        justify-content: center; /* Centra los enlaces */
+        flex-wrap: wrap;
+        justify-content: center;
     }
 
     header nav a {
-        margin: 0 15px; /* Ajusta el margen para tabletas */
+        margin: 0 15px;
     }
 
     .btn-login {
@@ -246,12 +239,12 @@ footer p {
     }
 
     footer .footer-logo {
-        margin-left: 0; /* Elimina el margen izquierdo fijo en móvil */
+        margin-left: 0;
         margin-bottom: 15px;
     }
 
     footer .footer-nav {
-        flex-direction: column; /* Apila los enlaces del footer */
+        flex-direction: column;
         gap: 10px;
         flex-grow: unset;
     }
@@ -280,4 +273,71 @@ footer p {
     footer .footer-logo {
         height: 40px;
     }
+}
+
+/* --- Dropdown de Notificaciones --- */
+.dropdown-notificaciones {
+    position: relative;
+}
+
+.right-icon-button {
+    background: none;
+    border: none;
+    position: relative;
+    cursor: pointer;
+    padding: 0;
+}
+
+.notificacion-count {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background: red;
+    color: white;
+    font-size: 12px;
+    border-radius: 50%;
+    padding: 2px 6px;
+    font-weight: bold;
+    line-height: 1;
+}
+
+.notificacion-dropdown {
+    position: absolute;
+    top: 45px;
+    right: 0;
+    background: #fff;
+    border: 1px solid #ccc;
+    width: 250px;
+    box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 6px;
+    padding: 10px 0;
+    z-index: 1000;
+}
+
+.notificacion-dropdown.hidden {
+    display: none;
+}
+
+.notificacion-dropdown ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.notificacion-dropdown li {
+    padding: 8px 15px;
+    border-bottom: 1px solid #eee;
+    font-size: 0.9em;
+    color: #333;
+}
+
+.notificacion-dropdown li:last-child {
+    border-bottom: none;
+}
+
+/* Opcional: cambio de color al pasar el mouse sobre un item */
+.notificacion-dropdown li:hover {
+    background-color: #f0f0f0;
 }

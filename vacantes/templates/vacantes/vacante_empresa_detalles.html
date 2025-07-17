@@ -22,10 +22,10 @@
                 <h1 class="vacante-title">{{ vacante.titulo }}</h1>
                 <div class="vacante-actions">
                     <a href="{% url 'vacantes:actualizar_vacante' vacante.pk %}" class="btn-edit">
-                        <i class="fas fa-edit"></i> Editar
+                        Editar
                     </a>
                     <button class="btn-delete" id="deleteBtn">
-                        <i class="fas fa-trash-alt"></i> Eliminar
+                        Eliminar
                     </button>
                 </div>
             </div>
@@ -33,27 +33,18 @@
 
         <div class="vacante-card">
             <div class="card-header">
-                <h2 class="empresa-name">{{ vacante.empresa.nombre_empresa }}</h2>
-                <span class="estado-badge {% if vacante.activo %}activo{% else %}inactivo{% endif %}">
-                    {% if vacante.activo %}Activa{% else %}Inactiva{% endif %}
+                <div class="empresa-info">
+                    <h2 class="empresa-name">{{ vacante.empresa.nombre_empresa }}</h2>
+                    <span class="estado-badge {% if vacante.activo %}activo{% else %}inactivo{% endif %}">
+                        {% if vacante.activo %}Activa{% else %}Inactiva{% endif %}
+                    </span>
+                </div>
+                <span class="vacantes-count">
+                    Cantidad de vacantes: {{ vacante.cantidad_vacantes }} vacante{{ vacante.cantidad_vacantes|pluralize }}
                 </span>
             </div>
 
             <div class="card-body">
-                <div class="section">
-                    <h3 class="section-title">Descripción</h3>
-                    <div class="section-content">
-                        {{ vacante.descripcion|linebreaksbr }}
-                    </div>
-                </div>
-
-                <div class="section">
-                    <h3 class="section-title">Requisitos</h3>
-                    <div class="section-content">
-                        {{ vacante.requerimientos|linebreaksbr }}
-                    </div>
-                </div>
-
                 <div class="details-grid">
                     <div class="detail-item">
                         <span class="detail-label">Ubicación:</span>
@@ -66,6 +57,24 @@
                     <div class="detail-item">
                         <span class="detail-label">Fecha Límite:</span>
                         <span class="detail-value">{{ vacante.fecha_limite|date:"d M, Y" }}</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Duración:</span>
+                        <span class="detail-value">{{ vacante.duracion}}</span>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h3 class="section-title">Descripción</h3>
+                    <div class="section-content">
+                        {{ vacante.descripcion|linebreaksbr }}
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h3 class="section-title">Requisitos</h3>
+                    <div class="section-content">
+                        {{ vacante.requerimientos|linebreaksbr }}
                     </div>
                 </div>
             </div>

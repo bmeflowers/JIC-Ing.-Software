@@ -50,12 +50,10 @@ main {
 .login-container {
     display: flex;
     background-color: transparent;
-    box-shadow: none;
     border-radius: 0;
     overflow: hidden;
-    max-width: 1000%;
-    width: 95%;
-    margin-top: -80px;
+    max-width: 100%;
+    width: 100%;
     margin-bottom: 0;
     flex-grow: 1;
 }
@@ -63,7 +61,7 @@ main {
 /* Sección del formulario (lado izquierdo) */
 .login-form-section {
     flex: 1;
-    padding: 10%;
+    padding: 0 100px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -80,6 +78,7 @@ main {
     color: #333;
     margin-bottom: 0%;
     font-weight: 700;
+    margin-top: 1px;
 }
 
 .login-form-section h2 {
@@ -183,10 +182,10 @@ main {
 }
 
 .login-image-section img {
-    max-width: 100%;
+    max-width: 120%;
     height: auto;
     display: block;
-    margin-left: 10%;
+    margin-right: 50px;
 }
 
 /* Media Queries para responsividad */

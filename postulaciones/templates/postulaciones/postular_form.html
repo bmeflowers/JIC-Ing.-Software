@@ -6,33 +6,99 @@
 {% block extra_head %}
 <link rel="icon" href="{% static 'images/Nwe.png' %}" type="image/png">
 <link rel="stylesheet" href="{% static 'css/regis.css' %}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 {% endblock %}
 
 {% block content %}
 <div class="form-container">
     <h2>Formulario de Postulación para "{{ vacante.titulo }}"</h2>
     <p class="form-description">Complete todos los campos requeridos para postular a esta vacante</p>
-    
+
     <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
-        
-        {% for field in form %}
-        <div class="form-field {% if field.field.required %}required{% endif %}">
-            {{ field.label_tag }}
-            {{ field }}
-            {% if field.help_text %}
-                <p class="helptext">{{ field.help_text }}</p>
-            {% endif %}
-            {% for error in field.errors %}
+
+        <!-- Primera línea -->
+        <div class="form-row fila-nombre-edad-telefono">
+            <div class="form-field required">
+                {{ form.nombre_completo.label_tag }}
+                {{ form.nombre_completo }}
+                {% for error in form.nombre_completo.errors %}
+                    <p class="error-message">{{ error }}</p>
+                {% endfor %}
+            </div>
+            <div class="form-field required">
+                {{ form.edad.label_tag }}
+                {{ form.edad }}
+                {% for error in form.edad.errors %}
+                    <p class="error-message">{{ error }}</p>
+                {% endfor %}
+            </div>
+            <div class="form-field required">
+                {{ form.telefono_1.label_tag }}
+                {{ form.telefono_1 }}
+                {% for error in form.telefono_1.errors %}
+                    <p class="error-message">{{ error }}</p>
+                {% endfor %}
+            </div>
+        </div>
+
+        <!-- Segunda línea -->
+        <div class="form-row">
+            <div class="form-field required">
+                {{ form.email.label_tag }}
+                {{ form.email }}
+                {% for error in form.email.errors %}
+                    <p class="error-message">{{ error }}</p>
+                {% endfor %}
+            </div>
+            <div class="form-field required">
+                {{ form.institucion.label_tag }}
+                {{ form.institucion }}
+                {% for error in form.institucion.errors %}
+                    <p class="error-message">{{ error }}</p>
+                {% endfor %}
+            </div>
+        </div>
+
+        <!-- Campo Motivo -->
+        <div class="form-field required" style="flex-basis: 100%;">
+            {{ form.motivo.label_tag }}
+            {{ form.motivo }}
+            {% for error in form.motivo.errors %}
                 <p class="error-message">{{ error }}</p>
             {% endfor %}
         </div>
-        {% endfor %}
-        
+
+        <!-- CV -->
+        <div class="form-field required" style="flex-basis: 100%;">
+            {{ form.cv.label_tag }}
+            <div class="cv-upload-wrapper">
+                <label for="id_cv" class="btn-upload-custom">
+                    <i class="fa-solid fa-cloud-arrow-up"></i>
+                    Subir CV
+                </label>
+                {{ form.cv }}
+                <span id="file-chosen">Ningún archivo seleccionado</span>
+            </div>
+            {% for error in form.cv.errors %}
+                <p class="error-message">{{ error }}</p>
+            {% endfor %}
+        </div>
+
+        <!-- Botones -->
         <div class="submit-container">
             <button type="submit" class="btn-submit">Enviar Postulación</button>
             <a href="{% url 'vacantes:vacante_publica_lista' %}" class="btn-cancel">Cancelar</a>
         </div>
     </form>
 </div>
+
+<script>
+    const input = document.getElementById("id_cv");
+    const fileChosen = document.getElementById("file-chosen");
+
+    input.addEventListener("change", function () {
+        fileChosen.textContent = input.files.length > 0 ? input.files[0].name : "Ningún archivo seleccionado";
+    });
+</script>
 {% endblock %}

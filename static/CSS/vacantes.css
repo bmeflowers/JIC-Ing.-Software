@@ -1,11 +1,9 @@
-body {
+
+.vacantes-container {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     color: #333333;
     background-color: #FFFFFF;
     margin: 0;
-}
-
-.vacantes-container {
     width: 100%;
     padding: 30px 4vw;
     box-sizing: border-box;
@@ -16,7 +14,7 @@ body {
     justify-content: space-between;
     align-items: center;
     flex-wrap: wrap;
-    margin-bottom: 40px;
+    margin-bottom: 11px;
 }
 
 .header-container {
@@ -38,22 +36,23 @@ body {
     font-weight: 500;
     padding: 8px 12px;
     border-radius: 6px;
+    order: 1;
 }
 
 .vacantes-title {
     font-size: 28px;
     font-weight: 600;
-    margin: 0;
+    margin-top: 10px;
     order: 2; 
     width: 100%; 
     color: #333333;
 }
 
 .crear-vacante-button {
-    background-color: #1565C0;
+    background-color: #272B75;
     color: white;
     padding: 10px 20px;
-    border-radius: 30px;
+    border-radius: 10px;
     text-decoration: none;
     font-size: 15px;
     font-weight: 500;
@@ -64,7 +63,7 @@ body {
 }
 
 .crear-vacante-button:hover {
-    background-color: #0d47a1;
+    background-color: #2b32b4;
 }
 
 .estado-vacio {
@@ -91,33 +90,14 @@ body {
     max-width: 400px;
 }
 
-.table {
-    width: 100%;
-    background-color: #fff;
-    border-radius: 12px;
-    overflow: hidden;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-}
-
-.table th {
-    background-color: #9965ad;
-    font-weight: 600;
-    padding: 12px 15px;
-}
-
-.table td {
-    padding: 12px 15px;
-    vertical-align: middle;
-}
-
 .estado-activo {
-    color: #2e7d32;
-    font-weight: 600;
+    color: #22B333;
+    font-weight: 700;
 }
 
 .estado-inactivo {
-    color: #757575;
-    font-weight: 600;
+    color: #1d1c1c;
+    font-weight: 700;
 }
 
 .estado-activo, .estado-inactivo {
@@ -134,16 +114,17 @@ body {
 }
 
 .btn-accion {
-    padding: 6px 12px;
+    padding: 6px 18px;
     font-size: 14px;
-    border-radius: 6px;
+    font-weight: 700;
+    border-radius: 10px;
     text-decoration: none;
     text-align: center;
     display: inline-block;
 }
 
 .btn-accion.Post {
-    background-color: #50efad;
+    background-color: #a83b7e;
     color: white;
 }
 
@@ -155,14 +136,32 @@ body {
 
 
 .btn-accion.editar {
-    background-color: #867f9e;
-    color: white;
+    background-color: #D2BDF4;
+    color: #6D28D9;
+}
+
+.btn-accion.editar:hover {
+    background-color: #a789d8;
+}
+
+.ver-detalles {
+   background-color: #bdf4e2;
+    color: #0f6b50;
+}
+
+.ver-detalles:hover {
+    background-color: #89d8c0;
 }
 
 .btn-accion.eliminar {
     border: none;
-    background-color: #5075ef;
+    background-color: #564570;
     color: white;
+    cursor: pointer;
+}
+
+.btn-accion.eliminar:hover {
+    background-color: #8572a1;
 }
 
 /* Responsive */
@@ -188,5 +187,101 @@ body {
 
     .mensaje-vacio {
         font-size: 16px;
+    }
+}
+
+/* Encabezado tipo tabla */
+.vacantes-encabezado,
+.vacante-card {
+    display: grid;
+    grid-template-columns: 1.5fr 1.5fr 1.5fr 1fr;
+    padding: 16px 24px;
+    column-gap: 0;
+}
+
+.vacantes-encabezado {
+    background-color: #C9BFE2;
+    border-radius: 10px;
+    margin-bottom: 15px;
+    color: #525151;
+    justify-content: center;
+    text-align: center;
+}
+
+.vacantes-encabezado > div {
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 700;
+    font-size: 15px;
+}
+
+.vacante-card {
+    align-items: center;
+    background-color: #FFFFFF;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+    margin-bottom: 20px;
+    transition: box-shadow 0.3s ease;
+}
+
+.vacante-card > div {
+    text-align: center; /* Opcional, para uniformidad */
+}
+
+/*.vacantes-encabezado > div,
+.vacante-card > div {
+    border: 1px dashed red;
+}*/
+
+.vacante-titulo {
+    position: relative;
+    display: inline-block;
+    color: #272B75;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.vacante-titulo::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -2px;
+    width: 0;
+    height: 2px;
+    background-color: #272B75;
+    transition: width 0.5s ease;
+}
+
+.vacante-titulo:hover::after {
+    width: 100%;
+}
+
+.col-fecha, .col-estado {
+    font-size: 14px;
+    color: #5e5b5b;
+    font-weight: 700;
+}
+
+.col-acciones {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-start;
+}
+
+@media (max-width: 768px) {
+    .vacantes-encabezado {
+        display: none;
+    }
+
+    .vacante-card {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .col-acciones {
+        justify-content: flex-start;
     }
 }

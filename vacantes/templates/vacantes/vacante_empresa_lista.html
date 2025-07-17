@@ -16,7 +16,7 @@
             <a href="{% url 'dashboards:dashboard_empresa' %}" class="back-link">
                 <i class="fas fa-arrow-left"></i> Atrás
             </a>
-            <h1 class="vacantes-title">Mis publicaciones de vacantes:</h1>
+            <h1 class="vacantes-title">Mis publicaciones de vacantes</h1>
         </div>
         <a href="{% url 'vacantes:crear_vacante' %}" class="crear-vacante-button">
             <i class="fas fa-plus"></i> Crear Vacante
@@ -24,50 +24,46 @@
     </div>
 
     {% if vacantes %}
-        <div class="table-responsive">
-            <table class="table table-striped table-hover">
-                <thead>
-                    <tr>
-                        <th>Título</th>
-                        <th>Ubicación</th>
-                        <th>Fecha Límite</th>
-                        <th>Estado</th>
-                        <th>Acciones</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for vacante in vacantes %}
-                        <tr>
-                            <td><a href="{% url 'vacantes:vacante_empresa_detalles' vacante.pk %}">{{ vacante.titulo }}</a></td>
-                            <td>{{ vacante.ubicacion }}</td>
-                            <td>{{ vacante.fecha_limite|date:"d M, Y" }}</td>
-                            <td>
-                                {% if vacante.activo %}
-                                    <span class="estado-activo">Activa</span>
-                                {% else %}
-                                    <span class="estado-inactivo">Inactiva</span>
-                                {% endif %}
-                            </td>
-                            <td>
-                                <div class="acciones-container">
-                                    <a href="{% url 'vacantes:actualizar_vacante' vacante.pk %}" class="btn-accion editar">Editar</a>
-                                    <button class="btn-accion eliminar" 
-                                            onclick="openDeleteModal({{ vacante.pk }}, '{{ vacante.titulo|escapejs }}')">
-                                        Eliminar
-                                    </button>
-                                </div>
-                            </td>
-                        </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        </div>
-    {% else %}
-        <div class="estado-vacio">
-            <i class="fas fa-file-alt icono-vacio"></i>
-            <p class="mensaje-vacio">¿Aún no has publicado ninguna vacante? ¡Es hora de empezar!</p>
-        </div>
-    {% endif %}
+    <div class="vacantes-encabezado">
+        <div class="col-titulo">Título</div>
+        <div class="col-fecha">Fecha Límite</div>
+        <div class="col-estado">Estado</div>
+        <div class="col-acciones">Acciones</div>
+    </div>
+
+    <div class="vacantes-cards">
+        {% for vacante in vacantes %}
+            <div class="vacante-card">
+                <div class="col-titulo">
+                    <a href="{% url 'vacantes:vacante_empresa_detalles' vacante.pk %}" class="vacante-titulo">{{ vacante.titulo }}</a>
+                </div>
+                <div class="col-fecha">
+                    {{ vacante.fecha_limite|date:"d M, Y" }}
+                </div>
+                <div class="col-estado">
+                    {% if vacante.activo %}
+                        <span class="estado-activo">Activa</span>
+                    {% else %}
+                        <span class="estado-inactivo">Inactiva</span>
+                    {% endif %}
+                </div>
+                <div class="col-acciones">
+                    <a href="{% url 'vacantes:actualizar_vacante' vacante.pk %}" class="btn-accion editar">Editar</a>
+                    <button class="btn-accion eliminar" 
+                            onclick="openDeleteModal({{ vacante.pk }}, '{{ vacante.titulo|escapejs }}')">
+                        Eliminar
+                    </button>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% else %}
+    <!-- Mensaje si no hay vacantes -->
+    <div class="estado-vacio">
+        <i class="fas fa-file-alt icono-vacio"></i>
+        <p class="mensaje-vacio">Aún no has publicado ninguna vacante. ¡Crea una ahora!</p>
+    </div>
+{% endif %}
 </div>
 
 <!-- Modal de confirmación (oculto por defecto) -->

@@ -4,12 +4,36 @@ from .models import Postulacion
 class PostulacionForm(forms.ModelForm):
     class Meta:
         model = Postulacion
-        fields = ['nombre_completo', 'edad', 'institucion', 'motivo', 'cv']
+        fields = ['nombre_completo', 'edad', 'telefono_1', 'email', 'institucion', 'motivo', 'cv']
         widgets = {
-            'nombre_completo': forms.TextInput(attrs={'class': 'form-control'}),
-            'institucion': forms.TextInput(attrs={'class': 'form-control'}),
-            'motivo': forms.Textarea(attrs={'class': 'form-control', 'rows': 4}),
-            'cv': forms.ClearableFileInput(attrs={'class': 'form-control'}),
+            'nombre_completo': forms.TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Ej. Juan Pérez'
+            }),
+            'edad': forms.NumberInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Tu edad (solo números)'
+            }),
+            'telefono_1': forms.TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Ej. +507 1234 5678'
+            }),
+            'email': forms.EmailInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'ejemplo@correo.com'
+            }),
+            'institucion': forms.TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Nombre de tu institución educativa'
+            }),
+            'motivo': forms.Textarea(attrs={
+                'class': 'form-control',
+                'rows': 4,
+                'placeholder': 'Cuéntanos brevemente por qué deseas postular a esta vacante...'
+            }),
+            'cv': forms.ClearableFileInput(attrs={
+                'class': 'form-control',
+            }),
         }
 
 class PostulacionStatusUpdateForm(forms.ModelForm):

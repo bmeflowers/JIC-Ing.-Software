@@ -37,7 +37,7 @@
 .modal-btn {
     padding: 8px 16px;
     border: none;
-    border-radius: 4px;
+    border-radius: 10px !important;
     cursor: pointer;
     font-weight: 500;
     /* Desactiva transiciones */

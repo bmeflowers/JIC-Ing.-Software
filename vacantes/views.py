@@ -71,31 +71,87 @@ class VacanteDeleteView(EmpresaRequiredMixin, DeleteView):
     def get_queryset(self):
         return Vacante.objects.filter(empresa=self.request.user.empresaprofile)
 
+from django.db.models import Q
+
 def vacante_publica_lista(request):
     session_key = 'vacante_ids_randomizadas'
+    ubicacion_filtro = request.GET.get('ubicacion')
+    texto_busqueda = request.GET.get('q', '').strip()
+    location_select = request.GET.get('location', '').strip()
 
-    if session_key not in request.session:
-        ids = list(Vacante.objects.filter(activo=True).values_list('id', flat=True))
+    LUGARES_PANAMA = [
+        'panamá', 'ciudad de panamá', 'panama', 'colón', 'chiriquí', 'david',
+        'veraguas', 'santiago', 'coclé', 'aguadulce', 'herrera', 'los santos',
+        'bocas del toro', 'darien', 'chepo', 'panamá oeste', 'arraiján',
+        'la chorrera', 'san miguelito'
+    ]
+
+    queryset = Vacante.objects.filter(activo=True)
+
+    # Filtro por "nacional" o "internacional"
+    if ubicacion_filtro == 'internacional':
+        q_obj = Q()
+        for lugar in LUGARES_PANAMA:
+            q_obj |= Q(ubicacion__icontains=lugar)
+        queryset = queryset.exclude(q_obj)
+
+    elif ubicacion_filtro == 'nacional':
+        q_obj = Q()
+        for lugar in LUGARES_PANAMA:
+            q_obj |= Q(ubicacion__icontains=lugar)
+        queryset = queryset.filter(q_obj)
+
+    if texto_busqueda:
+        queryset = queryset.filter(
+            Q(titulo__icontains=texto_busqueda) |
+            Q(descripcion__icontains=texto_busqueda) |
+            Q(empresa__nombre_empresa__icontains=texto_busqueda) |
+            Q(ubicacion__icontains=texto_busqueda) |
+            Q(duracion__icontains=texto_busqueda)
+        )
+
+    # Filtro por ubicación exacta (select)
+    if location_select:
+        queryset = queryset.filter(ubicacion__icontains=location_select.replace('-', ' '))
+
+    # Obtener IDs
+    ids = list(queryset.values_list('id', flat=True))
+
+    # Determinar si hay filtros activos
+    hay_filtros = texto_busqueda or location_select or ubicacion_filtro
+
+    # Limpieza de sesión si los IDs ya no coinciden
+    if session_key in request.session:
+        session_ids = request.session[session_key]
+        if set(session_ids) != set(ids):
+            del request.session[session_key]
+
+    # Aleatorizar según condiciones
+    if not hay_filtros:
+        # Siempre aleatorio si no hay filtros
         random.shuffle(ids)
-        request.session[session_key] = ids
+    else:
+        if session_key not in request.session or len(ids) != len(request.session[session_key]):
+            random.shuffle(ids)
+            request.session[session_key] = ids
+        else:
+            ids = request.session[session_key]
 
-    ids = request.session[session_key]
-
+    # Paginación
     paginator = Paginator(ids, 6)
     page_number = request.GET.get('page', 1)
     page_obj = paginator.get_page(page_number)
 
+    # Preservar orden aleatorio
     page_ids = page_obj.object_list
     preserved_order = Case(*[When(id=pk, then=pos) for pos, pk in enumerate(page_ids)])
     vacantes = Vacante.objects.filter(id__in=page_ids).order_by(preserved_order)
-
-    total_vacantes_activas = Vacante.objects.filter(activo=True).count()
 
     return render(request, 'vacantes/vacante_publica_lista.html', {
         'vacantes': vacantes,
         'page_obj': page_obj,
         'is_paginated': page_obj.has_other_pages(),
-        'total_vacantes': total_vacantes_activas,
+        'total_vacantes': queryset.count(),
     })
 
 class VacantePublicaDetailListView(DetailView):

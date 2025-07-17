@@ -21,15 +21,17 @@
     <!-- Búsqueda y filtros -->
     <div class="search-section">
         <form class="search-form" method="get" action="">
-            <div class="search-group search-text">
-                <input type="text" name="q" class="search-input" placeholder="Puesto, empresa, palabras claves">
-            </div>
-            <div class="search-group filter-select">
-                <select name="location" class="search-input">
-                    <option value="">Todas las ubicaciones</option>
-                    <option value="panama">Panamá</option>
-                    <option value="ciudad-panama">Ciudad de Panamá</option>
-                </select>
+            <div class="search-group search-text" style="position: relative;">
+                <input type="text" name="q" class="search-input"
+                    placeholder="Puesto, empresa, ubicación, jornada, duración..."
+                    value="{{ request.GET.q }}">
+                
+                {% if request.GET.q %}
+                <a href="{% url 'vacantes:vacante_publica_lista' %}" class="clear-search" title="Limpiar búsqueda" 
+                style="position: absolute; right: 0; top: 50%; transform: translateY(-50%); color: #7E57C2; text-decoration: none;">
+                    <i class="fas fa-times-circle"></i>
+                </a>
+                {% endif %}
             </div>
             <button type="submit" class="search-button">
                 <i class="fas fa-search"></i> Buscar
@@ -41,8 +43,23 @@
     <div class="results-header">
         <p class="results-count">{{ total_vacantes }} Ofertas de práctica profesional disponibles</p>
         <div class="sort-options">
-            <button class="sort-button active">Destacados</button>
-            <button class="sort-button">Nuevos</button>
+            <button 
+                class="sort-button {% if request.GET.ubicacion == 'internacional' %}active{% endif %}" 
+                onclick="filtrarUbicacion('internacional')">
+                Internacionales
+            </button>
+            
+            <button 
+                class="sort-button {% if request.GET.ubicacion == 'nacional' %}active{% endif %}" 
+                onclick="filtrarUbicacion('nacional')">
+                Nacionales
+            </button>
+            
+            <button 
+                class="sort-button {% if not request.GET.ubicacion or request.GET.ubicacion == 'todos' %}active{% endif %}" 
+                onclick="filtrarUbicacion('todos')">
+                Ver todos
+            </button>
         </div>
     </div>
 
@@ -111,4 +128,17 @@
     </div>
     {% endif %}
 </div>
+
+<script>
+    function filtrarUbicacion(tipo) {
+        const url = new URL(window.location.href);
+        if (tipo === 'todos') {
+            url.searchParams.delete('ubicacion');
+        } else {
+            url.searchParams.set('ubicacion', tipo);
+        }
+        url.searchParams.delete('page'); // Reinicia paginación
+        window.location.href = url.toString();
+    }
+</script>
 {% endblock %}

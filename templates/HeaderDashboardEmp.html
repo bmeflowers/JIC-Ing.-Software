@@ -17,19 +17,21 @@
         </div>
         <div class="header-center">
             <nav>
-                {# Enlace a Home #}
                 <a href="{% url 'dashboards:dashboard_empresa' %}"
-                   class="{% if request.path == '/dashboard/empresa/' %}active-nav{% endif %}">Home</a>
-                <a href="{% url 'home' %}"
-                   class="{% if request.path == '/' %}active-nav{% endif %}">Salir</a>
-                {# Agrega más enlaces aquí y aplica la misma lógica #}
-                {# Ejemplo para otra página: #}
-                {# <a href="{% url 'otras_vistas:mi_pagina' %#}
-                {#    class="{% if request.path == '/mi-pagina/' %}active-nav{% endif %}">Mi Página</a> #}
+                class="{% if request.resolver_match.url_name == 'dashboard_empresa' %}active-nav{% endif %}">Home</a>
+
+                <a href="{% url 'vacantes:vacante_empresa_lista' %}"
+                  class="{% if '/empresa/mis-vacantes/' in request.path or '/empresa/' in request.path and '/editar/' in request.path %}active-nav{% endif %}">Publicaciones</a>
+
+                <a href="{% url 'postulaciones:postulaciones_vacantes_empresa_lista' %}"
+                class="{% if '/empresa/mis-vacantes-postulaciones/' in request.path or '/empresa/vacante/' in request.path or '/empresa/postulacion/' in request.path %}active-nav{% endif %}">
+                Postulaciones
+                </a>
             </nav>
         </div>
-        <div class="header-right">
-                <img src="{% static 'icons/bell.svg' %}" alt="Bell Icon" class="right-icon">
+        <div class="header-riht">
+                <a href="{% url 'home' %}"
+                class="{% if request.path == '/' %}active-nav{% endif %}">Salir</a>
         </div>
     </header>
 

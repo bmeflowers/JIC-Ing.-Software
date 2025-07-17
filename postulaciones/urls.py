@@ -9,5 +9,6 @@ urlpatterns = [
     
     path('empresa/mis-vacantes-postulaciones/', views.PostulacionesVacantesEmpresaListView.as_view(), name='postulaciones_vacantes_empresa_lista'),
     path('empresa/vacante/<int:pk>/postulaciones/', views.PostulacionesEmpresaListView.as_view(), name='postulaciones_empresa_lista'),
-    path('empresa/postulacion/<int:pk>/detalles/', views.PostulacionEmpresaDetailView.as_view(), name='postulacion_empresa_detalles')
+    path('empresa/postulacion/<int:pk>/detalles/', views.PostulacionEmpresaDetailView.as_view(), name='postulacion_empresa_detalles'),
+    path('marcar-notificaciones-leidas/', views.marcar_notificaciones_leidas, name='marcar_notificaciones_leidas'),
 ]
